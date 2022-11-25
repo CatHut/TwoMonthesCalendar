@@ -7,10 +7,10 @@ namespace TwoMonthesCalendar
 {
     public static class ConstSetting
     {
-        private static readonly System.Drawing.Size _DateLabelInitialPosition = new Size(30, 30);
+        private static readonly System.Drawing.Size _DateLabelInitialPosition = new Size(30, 0);
         private static readonly System.Drawing.Size _DateLabelSize = new Size(30, 30);
-        private static readonly System.Drawing.Size _SecondMonthPosition = new Size(30, 960);
-        private static readonly System.Drawing.Size _SeparateSize = new Size(330, 160);
+        private static readonly System.Drawing.Size _SecondMonthPosition = new Size(30, 780);
+        private static readonly System.Drawing.Size _SeparateSize = new Size(315, 130);
         private static readonly System.Drawing.Size _TextBoxInitialPosition = new Size(30, 30);
         private static readonly System.Drawing.Size _TextBoxSize = new Size(300, 100);
 

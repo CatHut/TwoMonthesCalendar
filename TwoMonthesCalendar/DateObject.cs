@@ -58,8 +58,11 @@ namespace TwoMonthesCalendar
             var weekDay = (int)date.DayOfWeek;
 
 
+            m_DayLabel.Text = date.Day.ToString();
+
             if (is1st == true)
             {
+                m_DayLabel.Text = date.Day.ToString();
                 m_DayLabel.Location = new Point(
                     ConstSetting.DateLabelInitialPosition.X + ConstSetting.SeparateSize.Width * weekDay,
                     ConstSetting.DateLabelInitialPosition.Y + ConstSetting.SeparateSize.Height * weekOfMonth
