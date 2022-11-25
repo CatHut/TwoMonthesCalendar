@@ -50,7 +50,7 @@
             // 
             this.label_WeeklyMon.AutoSize = true;
             this.label_WeeklyMon.Font = new System.Drawing.Font("Yu Gothic UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_WeeklyMon.Location = new System.Drawing.Point(12, 9);
+            this.label_WeeklyMon.Location = new System.Drawing.Point(252, 9);
             this.label_WeeklyMon.Name = "label_WeeklyMon";
             this.label_WeeklyMon.Size = new System.Drawing.Size(38, 32);
             this.label_WeeklyMon.TabIndex = 1;
@@ -60,7 +60,7 @@
             // 
             this.label_WeeklyTue.AutoSize = true;
             this.label_WeeklyTue.Font = new System.Drawing.Font("Yu Gothic UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_WeeklyTue.Location = new System.Drawing.Point(294, 9);
+            this.label_WeeklyTue.Location = new System.Drawing.Point(534, 9);
             this.label_WeeklyTue.Name = "label_WeeklyTue";
             this.label_WeeklyTue.Size = new System.Drawing.Size(38, 32);
             this.label_WeeklyTue.TabIndex = 2;
@@ -70,7 +70,7 @@
             // 
             this.label_WeeklyThu.AutoSize = true;
             this.label_WeeklyThu.Font = new System.Drawing.Font("Yu Gothic UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_WeeklyThu.Location = new System.Drawing.Point(858, 9);
+            this.label_WeeklyThu.Location = new System.Drawing.Point(1098, 9);
             this.label_WeeklyThu.Name = "label_WeeklyThu";
             this.label_WeeklyThu.Size = new System.Drawing.Size(38, 32);
             this.label_WeeklyThu.TabIndex = 4;
@@ -80,7 +80,7 @@
             // 
             this.label_WeeklyWed.AutoSize = true;
             this.label_WeeklyWed.Font = new System.Drawing.Font("Yu Gothic UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_WeeklyWed.Location = new System.Drawing.Point(576, 9);
+            this.label_WeeklyWed.Location = new System.Drawing.Point(816, 9);
             this.label_WeeklyWed.Name = "label_WeeklyWed";
             this.label_WeeklyWed.Size = new System.Drawing.Size(38, 32);
             this.label_WeeklyWed.TabIndex = 3;
@@ -90,7 +90,7 @@
             // 
             this.label_WeeklySun.AutoSize = true;
             this.label_WeeklySun.Font = new System.Drawing.Font("Yu Gothic UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_WeeklySun.Location = new System.Drawing.Point(1704, 9);
+            this.label_WeeklySun.Location = new System.Drawing.Point(12, 9);
             this.label_WeeklySun.Name = "label_WeeklySun";
             this.label_WeeklySun.Size = new System.Drawing.Size(38, 32);
             this.label_WeeklySun.TabIndex = 7;
@@ -100,7 +100,7 @@
             // 
             this.label_WeeklySat.AutoSize = true;
             this.label_WeeklySat.Font = new System.Drawing.Font("Yu Gothic UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_WeeklySat.Location = new System.Drawing.Point(1422, 9);
+            this.label_WeeklySat.Location = new System.Drawing.Point(1662, 9);
             this.label_WeeklySat.Name = "label_WeeklySat";
             this.label_WeeklySat.Size = new System.Drawing.Size(38, 32);
             this.label_WeeklySat.TabIndex = 6;
@@ -110,7 +110,7 @@
             // 
             this.label_WeeklyFri.AutoSize = true;
             this.label_WeeklyFri.Font = new System.Drawing.Font("Yu Gothic UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label_WeeklyFri.Location = new System.Drawing.Point(1140, 9);
+            this.label_WeeklyFri.Location = new System.Drawing.Point(1380, 9);
             this.label_WeeklyFri.Name = "label_WeeklyFri";
             this.label_WeeklyFri.Size = new System.Drawing.Size(38, 32);
             this.label_WeeklyFri.TabIndex = 5;

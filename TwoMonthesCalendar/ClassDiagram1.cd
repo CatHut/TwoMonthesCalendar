@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CatHut.SettingContents" Collapsed="true">
+    <Position X="3.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <FileName>AppSetting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CatHut.AppSetting" Collapsed="true">
+    <Position X="1.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAQAAAAAAAAAQAAAAAAAApAAAAAAAAAA=</HashCode>
+      <FileName>AppSetting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TwoMonthesCalendar.DateObject" Collapsed="true">
+    <Position X="3.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABgAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAAAAAAACAAA=</HashCode>
+      <FileName>DateObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TwoMonthesCalendar.Form1" Collapsed="true">
+    <Position X="5.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgAAAKgBACAIAQAAAACAAAACAAACAEAAAAAyAAwAAAA=</HashCode>
+      <FileName>Form1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TwoMonthesCalendar.Program" Collapsed="true">
+    <Position X="1.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TwoMonthesCalendar.ConstSetting">
+    <Position X="6.25" Y="4" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="TwoMonthesCalendar.ConstSetting.RESOLUTION" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ConstSetting.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAgAAAAgAAAAAAAAAAgAAIAAAAAgAAAQAAAQAAAAAAA=</HashCode>
+      <FileName>ConstSetting.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Yu Gothic UI" Size="9" />
+</ClassDiagram>

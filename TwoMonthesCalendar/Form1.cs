@@ -2,12 +2,14 @@ using CatHut;
 
 namespace TwoMonthesCalendar
 {
+
     public partial class Form1 : Form
     {
 
         Dictionary<DateTime, DateObject> m_DateObjectDic1st;
         Dictionary<DateTime, DateObject> m_DateObjectDic2nd;
         AppSetting m_APS;
+
 
 
         public Form1()
@@ -90,6 +92,24 @@ namespace TwoMonthesCalendar
         private void AdjustCalendar()
         {
             //å©âhÇ¶í≤êÆ
+            {
+                var keys = m_DateObjectDic1st.Keys;
+
+                foreach (var key in keys)
+                {
+                    m_DateObjectDic1st[key].SetPosition(key, true);
+                }
+            }
+
+            {
+                var keys = m_DateObjectDic2nd.Keys;
+
+                foreach (var key in keys)
+                {
+                    m_DateObjectDic2nd[key].SetPosition(key, false);
+                }
+            }
+
 
         }
 

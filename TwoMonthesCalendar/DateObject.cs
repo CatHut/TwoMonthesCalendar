@@ -18,14 +18,11 @@ namespace TwoMonthesCalendar
             m_Rtb = new RichTextBox();
 
             AddToForm(form);
-
-            SetPosition(date);
-
         }
 
         public void AddToForm(Form1 form)
         {
-            if(m_DayLabel != null && m_Rtb != null)
+            if (m_DayLabel != null && m_Rtb != null)
             {
                 form.Controls.Add(m_DayLabel);
                 form.Controls.Add(m_Rtb);
@@ -50,28 +47,47 @@ namespace TwoMonthesCalendar
 
         }
 
-        private void SetPosition(DateTime date)
+        public void SetPosition(DateTime date, bool is1st)
         {
             var dfi = DateTimeFormatInfo.CurrentInfo;
             Calendar cal = dfi.Calendar;
 
             var weekOfMonth1stDay = cal.GetWeekOfYear(new DateTime(date.Year, date.Month, 1), dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
             var weekOfDay = cal.GetWeekOfYear(date, dfi.CalendarWeekRule, dfi.FirstDayOfWeek);
-
             var weekOfMonth = weekOfDay - weekOfMonth1stDay;
-
             var weekDay = (int)date.DayOfWeek;
 
-            Size sizeDay = new Size(300, 300);
 
-            m_DayLabel.Location = new Point(sizeDay.Width * weekDay, sizeDay.Height * weekOfMonth);
-            m_DayLabel.Size = new Size(50, 20);
+            if (is1st == true)
+            {
+                m_DayLabel.Location = new Point(
+                    ConstSetting.DateLabelInitialPosition.X + ConstSetting.SeparateSize.Width * weekDay,
+                    ConstSetting.DateLabelInitialPosition.Y + ConstSetting.SeparateSize.Height * weekOfMonth
+                    );
+                m_DayLabel.Size = ConstSetting.DateLabelSize;
 
-            m_Rtb.Location = new Point(sizeDay.Width * weekDay, sizeDay.Height * weekOfMonth);
-            m_Rtb.Size = new Size(300, 300);
+                m_Rtb.Location = new Point(
+                    ConstSetting.TextBoxInitialPosition.X + ConstSetting.SeparateSize.Width * weekDay,
+                    ConstSetting.TextBoxInitialPosition.Y + ConstSetting.SeparateSize.Height * weekOfMonth
+                    );
+                m_Rtb.Size = ConstSetting.TextBoxSize;
+            }
+            else
+            {
+                m_DayLabel.Location = new Point(
+                    ConstSetting.DateLabelInitialPosition.X + ConstSetting.SeparateSize.Width * weekDay,
+                    ConstSetting.SecondMonthPosition.Y + ConstSetting.DateLabelInitialPosition.Y + ConstSetting.SeparateSize.Height * weekOfMonth
+                    );
+                m_DayLabel.Size = ConstSetting.DateLabelSize;
+
+                m_Rtb.Location = new Point(
+                    ConstSetting.TextBoxInitialPosition.X + ConstSetting.SeparateSize.Width * weekDay,
+                    ConstSetting.SecondMonthPosition.Y + ConstSetting.TextBoxInitialPosition.Y + ConstSetting.SeparateSize.Height * weekOfMonth
+                    );
+                m_Rtb.Size = ConstSetting.TextBoxSize;
+            }
+
 
         }
-
-
     }
 }
