@@ -22,7 +22,7 @@ namespace CatHut {
 
         //コンストラクタ（初期値指定を実装）
         public SettingContents() {
-            this.m_ShowMonth = DateTime.Today;
+            this.m_ShowMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             this.m_Location = new Point(0, 0);
             this.m_Resolution = ConstSetting.RESOLUTION.R2560_1440; 
         }

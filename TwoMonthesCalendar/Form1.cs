@@ -1,4 +1,5 @@
 using CatHut;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace TwoMonthesCalendar
@@ -56,23 +57,91 @@ namespace TwoMonthesCalendar
             ConstSetting.Resolution = m_APS.Settings.m_Resolution;
             var showMonth = m_APS.Settings.m_ShowMonth;
 
+            this.DoubleBuffered = true;
+
+            CreateCalendar();
+            AddControls();
             UpdateCalendar(showMonth);
 
         }
 
         private void UpdateCalendar(DateTime showMonth)
         {
-            this.SuspendLayout();
+            BeginControlUpdate(this);
 
             //今の表示を一旦破棄
-            RemoveCalendar();
+            //RemoveCalendar();
 
-            CreateCalendar(showMonth);
+            RefreshCalendar(showMonth);
 
             AdjustCalendar();
 
-            this.ResumeLayout();
+
+            EndControlUpdate(this);
+
+
+            this.Refresh();
         }
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage(HandleRef hWnd, int msg, IntPtr wParam, IntPtr lParam);
+        private const int WM_SETREDRAW = 0x000B;
+
+        /// <summary>
+        /// コントロールの再描画を停止させる
+        /// </summary>
+        /// <param name="control">対象のコントロール</param>
+        public static void BeginControlUpdate(Control control)
+        {
+            SendMessage(new HandleRef(control, control.Handle),
+                WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// コントロールの再描画を再開させる
+        /// </summary>
+        /// <param name="control">対象のコントロール</param>
+        public static void EndControlUpdate(Control control)
+        {
+            SendMessage(new HandleRef(control, control.Handle),
+                WM_SETREDRAW, new IntPtr(1), IntPtr.Zero);
+            control.Invalidate();
+        }
+
+
+        private void AddControls()
+        {
+            var controlList = new List<Control>();
+
+            controlList.AddRange(m_WeekLabelDic1st.Values.ToArray());
+            controlList.AddRange(m_WeekLabelDic2nd.Values.ToArray());
+
+            {
+                var keys = m_DateObjectDic1st.Keys;
+
+                foreach(var key in keys)
+                {
+                    controlList.Add(m_DateObjectDic1st[key].m_DayLabel);
+                    controlList.Add(m_DateObjectDic1st[key].m_Rtb);
+                }
+            }
+
+            {
+                var keys = m_DateObjectDic2nd.Keys;
+
+                foreach (var key in keys)
+                {
+                    controlList.Add(m_DateObjectDic2nd[key].m_DayLabel);
+                    controlList.Add(m_DateObjectDic2nd[key].m_Rtb);
+                }
+            }
+
+            this.Controls.AddRange(controlList.ToArray());
+
+            controlList.Clear();
+
+        }
+
 
         public void richTextBox_MouseDown(object sender, MouseEventArgs e)
         {
@@ -107,54 +176,51 @@ namespace TwoMonthesCalendar
             m_APS.SaveData();
         }
 
-        private void CreateCalendar(DateTime showMonth)
+
+        private void CreateCalendar()
         {
             //日付部分作成
             if (m_DateObjectDic1st == null)
             {
                 m_DateObjectDic1st = new Dictionary<DateTime, DateObject>();
-            }
 
-            var days = DateTime.DaysInMonth(showMonth.Year, showMonth.Month);
-            for (int i = 0; i < days; i++)
-            {
-                var date = new DateTime(showMonth.Year, showMonth.Month, i + 1);
-                m_DateObjectDic1st.Add(date, new DateObject(this, date));
+                var date = new DateTime(1900, 1, 1);
+                for (int i = 0; i < 31; i++)
+                {
+                    date = date.AddDays(1);
+                    m_DateObjectDic1st.Add(date, new DateObject(this, date));
+                }
             }
-
 
             if (m_DateObjectDic2nd == null)
             {
                 m_DateObjectDic2nd = new Dictionary<DateTime, DateObject>();
-            }
-
-            var nextMonth = showMonth.AddMonths(1);
-
-            days = DateTime.DaysInMonth(nextMonth.Year, nextMonth.Month);
-            for (int i = 0; i < days; i++)
-            {
-                var date = new DateTime(nextMonth.Year, nextMonth.Month, i + 1);
-                m_DateObjectDic2nd.Add(date, new DateObject(this, date));
+                var date = new DateTime(1900, 1, 1);
+                for (int i = 0; i < 31; i++)
+                {
+                    date = date.AddDays(1);
+                    m_DateObjectDic2nd.Add(date, new DateObject(this, date));
+                }
             }
 
 
             //曜日ラベル作成
-            foreach(var temp in Enum.GetValues(typeof(DayOfWeek)))
+            foreach (var temp in Enum.GetValues(typeof(DayOfWeek)))
             {
+                var wDay = (DayOfWeek)temp;
+
                 if (m_WeekLabelDic1st == null)
                 {
                     m_WeekLabelDic1st = new Dictionary<DayOfWeek, Label>();
                 }
+
                 if (m_WeekLabelDic2nd == null)
                 {
                     m_WeekLabelDic2nd = new Dictionary<DayOfWeek, Label>();
                 }
 
-                var wDay = (DayOfWeek)temp;
                 m_WeekLabelDic1st.Add(wDay, new Label());
                 m_WeekLabelDic2nd.Add(wDay, new Label());
-                this.Controls.Add(m_WeekLabelDic1st[wDay]);
-                this.Controls.Add(m_WeekLabelDic2nd[wDay]);
 
                 m_WeekLabelDic1st[wDay].Text = ConstSetting.GetWeekDayText(wDay);
                 m_WeekLabelDic2nd[wDay].Text = ConstSetting.GetWeekDayText(wDay);
@@ -165,6 +231,66 @@ namespace TwoMonthesCalendar
                 m_WeekLabelDic1st[wDay].ForeColor = Color.White;
                 m_WeekLabelDic2nd[wDay].ForeColor = Color.White;
             }
+        }
+
+        private void RefreshCalendar(DateTime showMonth)
+        {
+
+
+            //日付部分設定
+            var nextMonth = showMonth.AddMonths(1);
+            {
+                var days = DateTime.DaysInMonth(showMonth.Year, showMonth.Month);
+
+                var keys = m_DateObjectDic1st.Keys.ToList();
+                int i = 0;
+                foreach (var key in keys)
+                {
+                    if (i >= days) { break; }
+
+                    var date = new DateTime(showMonth.Year, showMonth.Month, i + 1);
+                    m_DateObjectDic1st[date] = m_DateObjectDic1st[key];
+                    m_DateObjectDic1st[date].ChangeDate(date);
+                    m_DateObjectDic1st.Remove(key);
+
+                    i++;
+                }
+            }
+
+            {
+                var days = DateTime.DaysInMonth(nextMonth.Year, nextMonth.Month);
+
+                var keys = m_DateObjectDic2nd.Keys.ToList();
+                int i = 0;
+                foreach (var key in keys)
+                {
+                    if (i >= days) { break; }
+
+                    var date = new DateTime(nextMonth.Year, nextMonth.Month, i + 1);
+                    m_DateObjectDic2nd[date] = m_DateObjectDic2nd[key];
+                    m_DateObjectDic2nd[date].ChangeDate(date);
+                    m_DateObjectDic2nd.Remove(key);
+
+                    i++;
+                }
+            }
+
+
+            //曜日ラベル作成
+            foreach (var temp in Enum.GetValues(typeof(DayOfWeek)))
+            {
+                var wDay = (DayOfWeek)temp;
+
+                m_WeekLabelDic1st[wDay].Text = ConstSetting.GetWeekDayText(wDay);
+                m_WeekLabelDic2nd[wDay].Text = ConstSetting.GetWeekDayText(wDay);
+
+                m_WeekLabelDic1st[wDay].TextAlign = ContentAlignment.MiddleCenter;
+                m_WeekLabelDic2nd[wDay].TextAlign = ContentAlignment.MiddleCenter;
+
+                m_WeekLabelDic1st[wDay].ForeColor = Color.White;
+                m_WeekLabelDic2nd[wDay].ForeColor = Color.White;
+            }
+
 
             //年月表示更新
             label_ShowMonth.Text = showMonth.ToString("yyyy年MM月");
@@ -227,26 +353,77 @@ namespace TwoMonthesCalendar
 
         }
 
+
+
+
         private void AdjustCalendar()
         {
             //見栄え調整 カレンダー部分
+            //位置調整
             {
                 var keys = m_DateObjectDic1st.Keys;
 
                 foreach (var key in keys)
                 {
-                    m_DateObjectDic1st[key].SetPosition(key, true);
+                    var month = new DateTime(key.Year, key.Month, 1);
+                    if (m_APS.Settings.m_ShowMonth == month) {
+                        m_DateObjectDic1st[key].SetPosition(key, true);
+                    }
                 }
             }
 
             {
                 var keys = m_DateObjectDic2nd.Keys;
+                var nextMonth = m_APS.Settings.m_ShowMonth.AddMonths(1);
 
                 foreach (var key in keys)
                 {
-                    m_DateObjectDic2nd[key].SetPosition(key, false);
+                    var month = new DateTime(key.Year, key.Month, 1);
+                    if (nextMonth == month)
+                    {
+                        m_DateObjectDic2nd[key].SetPosition(key, false);
+                    }
                 }
             }
+
+            //表示/非表示更新
+            {
+                var keys = m_DateObjectDic1st.Keys;
+
+                foreach (var key in keys)
+                {
+                    var month = new DateTime(key.Year, key.Month, 1);
+                    if (m_APS.Settings.m_ShowMonth != month)
+                    {
+                        m_DateObjectDic1st[key].SetVisible(false);
+                    }
+                    else
+                    {
+                        m_DateObjectDic1st[key].SetVisible(true);
+                    }
+                }
+            }
+
+            {
+                var keys = m_DateObjectDic2nd.Keys;
+                var nextMonth = m_APS.Settings.m_ShowMonth.AddMonths(1);
+
+                foreach (var key in keys)
+                {
+                    var month = new DateTime(key.Year, key.Month, 1);
+                    if (nextMonth != month)
+                    {
+                        m_DateObjectDic2nd[key].SetVisible(false);
+                    }
+                    else
+                    {
+                        m_DateObjectDic2nd[key].SetVisible(true);
+                    }
+                }
+            }
+
+
+
 
             //見栄え調整 曜日ラベル部分
             {

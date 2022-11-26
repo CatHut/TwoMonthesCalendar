@@ -10,8 +10,8 @@ namespace TwoMonthesCalendar
     internal class DateObject
     {
         string m_FileName;
-        Label m_DayLabel;
-        RichTextBox m_Rtb;
+        public Label m_DayLabel;
+        public RichTextBox m_Rtb;
         bool m_Loading;
 
         public DateObject(Form1 form, DateTime date)
@@ -23,7 +23,6 @@ namespace TwoMonthesCalendar
             //プロパティ初期化
             m_DayLabel.BackColor = Color.White;
             
-            
             m_Rtb.BorderStyle = BorderStyle.None;
 
             //イベント設定
@@ -34,8 +33,20 @@ namespace TwoMonthesCalendar
 
             Load();
 
-            AddToForm(form);
         }
+
+        public void ChangeDate(DateTime date)
+        {
+            m_FileName = ConstSetting.SaveFolder + date.ToString("yyyyMMdd") + ConstSetting.SaveFileExt;
+            Load();
+        }
+
+        public void SetVisible(bool visible)
+        {
+            m_DayLabel.Visible = visible;
+            m_Rtb.Visible = visible;
+        }
+
 
         private void richTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -53,21 +64,13 @@ namespace TwoMonthesCalendar
 
         public void Load()
         {
+            m_Loading = true;
+            m_Rtb.Text = "";
             if (File.Exists(m_FileName))
             {
-                m_Loading = true;
                 m_Rtb.LoadFile(m_FileName);
-                m_Loading = false;
             }
-        }
-
-        public void AddToForm(Form1 form)
-        {
-            if (m_DayLabel != null && m_Rtb != null)
-            {
-                form.Controls.Add(m_DayLabel);
-                form.Controls.Add(m_Rtb);
-            }
+            m_Loading = false;
         }
 
         public void RemoveFromForm(Form1 form)
@@ -89,6 +92,13 @@ namespace TwoMonthesCalendar
             }
 
         }
+
+        //public boid SetUpdateEnable(bool enable)
+        //{
+        //    m_Rtb.U
+        //}
+
+
 
         public void SetPosition(DateTime date, bool is1st)
         {
