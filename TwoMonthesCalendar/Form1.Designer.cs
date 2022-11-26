@@ -28,7 +28,16 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.notifyIconTwoMonthesCalendar = new System.Windows.Forms.NotifyIcon(this.components);
             this.SuspendLayout();
+            // 
+            // notifyIconTwoMonthesCalendar
+            // 
+            this.notifyIconTwoMonthesCalendar.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIconTwoMonthesCalendar.Icon")));
+            this.notifyIconTwoMonthesCalendar.Text = "notifyIconTwoMonthesCalendar";
+            this.notifyIconTwoMonthesCalendar.Visible = true;
             // 
             // Form1
             // 
@@ -37,10 +46,13 @@
             this.ClientSize = new System.Drawing.Size(1993, 764);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Shown += new System.EventHandler(this.Form1_Shown);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private NotifyIcon notifyIconTwoMonthesCalendar;
     }
 }

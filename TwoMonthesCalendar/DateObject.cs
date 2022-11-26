@@ -9,11 +9,14 @@ namespace TwoMonthesCalendar
 {
     internal class DateObject
     {
+        string m_FileName;
         Label m_DayLabel;
         RichTextBox m_Rtb;
+        bool m_Loading;
 
         public DateObject(Form1 form, DateTime date)
         {
+            m_FileName = ConstSetting.SaveFolder + date.ToString("yyyyMMdd") + ConstSetting.SaveFileExt;
             m_DayLabel = new Label();
             m_Rtb = new RichTextBox();
 
@@ -23,8 +26,38 @@ namespace TwoMonthesCalendar
             
             m_Rtb.BorderStyle = BorderStyle.None;
 
+            //イベント設定
+            this.m_Rtb.MouseDown += new System.Windows.Forms.MouseEventHandler(form.richTextBox_MouseDown);
+            this.m_Rtb.MouseMove += new System.Windows.Forms.MouseEventHandler(form.richTextBox_MouseMove);
+            this.m_Rtb.TextChanged += new System.EventHandler(this.richTextBox_TextChanged);
+
+            Load();
 
             AddToForm(form);
+        }
+
+        private void richTextBox_TextChanged(object sender, EventArgs e)
+        {
+            if (m_Loading != true)
+            {
+                Save();
+            }
+        }
+
+        public void Save()
+        {
+            if (!Directory.Exists(ConstSetting.SaveFolder)) { Directory.CreateDirectory(ConstSetting.SaveFolder); }
+            m_Rtb.SaveFile(m_FileName);
+        }
+
+        public void Load()
+        {
+            if (File.Exists(m_FileName))
+            {
+                m_Loading = true;
+                m_Rtb.LoadFile(m_FileName);
+                m_Loading = false;
+            }
         }
 
         public void AddToForm(Form1 form)
@@ -40,14 +73,15 @@ namespace TwoMonthesCalendar
         {
             if (form.Controls.Contains(m_DayLabel))
             {
-                //this.m_DayLabel.Click -= new System.EventHandler(this.m_DayLabel_Click);
                 form.Controls.Remove(m_DayLabel);
                 m_DayLabel.Dispose();
             }
 
             if (form.Controls.Contains(m_Rtb))
             {
-                //this.m_Rtb.Click -= new System.EventHandler(this.m_Rtb_Click);
+                this.m_Rtb.MouseDown -= new System.Windows.Forms.MouseEventHandler(form.richTextBox_MouseDown);
+                this.m_Rtb.MouseMove -= new System.Windows.Forms.MouseEventHandler(form.richTextBox_MouseMove);
+                this.m_Rtb.TextChanged -= new System.EventHandler(this.richTextBox_TextChanged);
                 form.Controls.Remove(m_Rtb);
                 m_Rtb.Dispose();
             }

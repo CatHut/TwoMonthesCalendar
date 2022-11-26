@@ -66,6 +66,11 @@ namespace TwoMonthesCalendar
             { RESOLUTION.R2560_1440, 1f }
         };
 
+        private static Dictionary<RESOLUTION, Size> _FormSizeDic = new Dictionary<RESOLUTION, Size> {
+            { RESOLUTION.R1920_1080, new Size(1920, 1080) },
+            { RESOLUTION.R2560_1440, new Size(2560, 1440) }
+        };
+
         /// <summary>
         /// 日付ラベルのサイズ
         /// </summary>
@@ -163,8 +168,9 @@ namespace TwoMonthesCalendar
             var url = @"https://holidays-jp.github.io/api/v1/date.json";
             var req = new HttpClient();
 
-            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             var result = req.GetStringAsync(url).Result;
+
+            req.Dispose();
 
             return result;
         }
@@ -226,5 +232,20 @@ namespace TwoMonthesCalendar
                 return (_WeekLabelSize * _ResolutionCoefDic[Resolution]).ToSize();
             }
         }
+
+        /// <summary>
+        /// フォームのサイズ
+        /// </summary>
+        public static Size FormSize
+        {
+            get
+            {
+                return _FormSizeDic[Resolution];
+            }
+        }
+
+        public static string SaveFolder { get; } = @"SaveData\";
+
+        public static string SaveFileExt { get; } = ".txt";
     }
 }

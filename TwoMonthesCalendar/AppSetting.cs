@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Diagnostics;
+using TwoMonthesCalendar;
 
 namespace CatHut {
 
@@ -15,11 +16,15 @@ namespace CatHut {
 
         //ここに設定項目を羅列
         public DateTime m_ShowMonth;
+        public Point m_Location;
+        public ConstSetting.RESOLUTION m_Resolution;
 
 
         //コンストラクタ（初期値指定を実装）
         public SettingContents() {
             this.m_ShowMonth = DateTime.Today;
+            this.m_Location = new Point(0, 0);
+            this.m_Resolution = ConstSetting.RESOLUTION.R2560_1440; 
         }
 
 

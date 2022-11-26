@@ -11,6 +11,7 @@ namespace TwoMonthesCalendar
         Dictionary<DateTime, DateObject> m_DateObjectDic2nd;
         Dictionary<DayOfWeek, Label> m_WeekLabelDic1st;
         Dictionary<DayOfWeek, Label> m_WeekLabelDic2nd;
+        Point m_TempMousePoint;
         AppSetting m_APS;
 
 
@@ -19,15 +20,27 @@ namespace TwoMonthesCalendar
         {
             InitializeComponent();
 
+            notifyIconTwoMonthesCalendar.ContextMenuStrip = ContextMenu();
+
             Initialize();
 
         }
 
+        private ContextMenuStrip ContextMenu()
+        {
+            // アイコンを右クリックしたときのメニューを返却
+            var menu = new ContextMenuStrip();
+            menu.Items.Add("終了", null, (s, e) => {
+                Application.Exit();
+            });
+            return menu;
+        }
 
         private void Initialize()
         {
             m_APS = new AppSetting();
 
+            ConstSetting.Resolution = m_APS.Settings.m_Resolution;
             var showMonth = m_APS.Settings.m_ShowMonth;
 
             UpdateCalendar(showMonth);
@@ -44,6 +57,25 @@ namespace TwoMonthesCalendar
             AdjustCalendar();
 
         }
+
+        public void richTextBox_MouseDown(object sender, MouseEventArgs e)
+        {
+            if ((e.Button & MouseButtons.Middle) == MouseButtons.Middle)
+            {
+                //位置を記憶する
+                m_TempMousePoint = new Point(e.X, e.Y);
+            }
+        }
+
+        public void richTextBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if ((e.Button & MouseButtons.Middle) == MouseButtons.Middle)
+            {
+                this.Left += e.X - m_TempMousePoint.X;
+                this.Top += e.Y - m_TempMousePoint.Y;
+            }
+        }
+
 
         private void CreateCalendar(DateTime showMonth)
         {
@@ -202,8 +234,40 @@ namespace TwoMonthesCalendar
             }
         }
 
+        private void Save()
+        {
+            
+
+            if (m_DateObjectDic1st != null)
+            {
+                var keys = m_DateObjectDic1st.Keys;
+                foreach (var key in keys)
+                {
+                    m_DateObjectDic1st[key].Save();
+                }
+            }
 
 
+            if (m_DateObjectDic2nd != null)
+            {
+                var keys = m_DateObjectDic2nd.Keys;
+                foreach (var key in keys)
+                {
+                    m_DateObjectDic2nd[key].Save();
+                }
+                m_DateObjectDic2nd.Clear();
+            }
+        }
+
+        private void Form1_Shown(object sender, EventArgs e)
+        {
+            FormBorderStyle = FormBorderStyle.None;//フォームの枠を非表示にする
+            this.TransparencyKey = this.BackColor;
+
+
+            this.Size = ConstSetting.FormSize;
+            this.Location = m_APS.Settings.m_Location;
+        }
 
     }
 }
