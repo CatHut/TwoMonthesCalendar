@@ -26,15 +26,15 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 日付ラベルのサイズ
         /// </summary>
-        private static readonly System.Drawing.Size _DateLabelSize = new Size(300, 30);
+        private static readonly System.Drawing.Size _DateLabelSize = new Size(200, 32);
         /// <summary>
         /// 二月目の位置
         /// </summary>
-        private static readonly System.Drawing.Size _SecondMonthPosition = new Size(0, 780);
+        private static readonly System.Drawing.Size _SecondMonthPosition = new Size(0, 700);
         /// <summary>
         /// 配置間隔
         /// </summary>
-        private static readonly System.Drawing.Size _SeparateSize = new Size(302, 132);
+        private static readonly System.Drawing.Size _SeparateSize = new Size(202, 107);
         /// <summary>
         /// テキストボックスの先頭位置
         /// </summary>
@@ -42,7 +42,7 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// テキストボックスのサイズ
         /// </summary>
-        private static readonly System.Drawing.Size _TextBoxSize = new Size(300, 100);
+        private static readonly System.Drawing.Size _TextBoxSize = new Size(200, 75);
         /// <summary>
         /// 曜日表示の先頭位置
         /// </summary>
@@ -50,7 +50,42 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 曜日表示のサイズ
         /// </summary>
-        private static readonly Size _WeekLabelSize = new Size(300, 30);
+        private static readonly Size _WeekLabelSize = new Size(200, 30);
+        /// <summary>
+        /// 前月ボタンの先頭位置
+        /// </summary>
+        private static readonly Size _PrevMonthButtonInitialPosition = new Size(557, 617);
+        /// <summary>
+        /// 前月ボタンのサイズ
+        /// </summary>
+        private static readonly Size _PrevMonthButtonSize = new Size(50, 30);
+        /// <summary>
+        /// 次月ボタンの先頭位置
+        /// </summary>
+        private static readonly Size _NextMonthButtonInitialPosition = new Size(807, 617);
+        /// <summary>
+        /// 次月ボタンのサイズ
+        /// </summary>
+        private static readonly Size _NextMonthButtonSize = new Size(50, 30);
+
+        /// <summary>
+        /// 今月表示の先頭位置
+        /// </summary>
+        private static readonly Size _ShowMonthLabelInitialPosition = new Size(607, 587);
+        /// <summary>
+        /// 今月表示のサイズ
+        /// </summary>
+        private static readonly Size _ShowMonthLabelSize = new Size(200, 30);
+        /// <summary>
+        /// 次月表示の先頭位置
+        /// </summary>
+        private static readonly Size _NextMonthLabelInitialPosition = new Size(607, 647);
+        /// <summary>
+        /// 次月表示のサイズ
+        /// </summary>
+        private static readonly Size _NextMonthLabelSize = new Size(200, 30);
+
+
 
         private static Dictionary<DateTime, string> _HolidayDic = null;
 
@@ -247,5 +282,69 @@ namespace TwoMonthesCalendar
         public static string SaveFolder { get; } = @"SaveData\";
 
         public static string SaveFileExt { get; } = ".txt";
+
+        public static Point PrevMonthButtonInitialPosition
+        {
+            get
+            {
+                return (Point)(_PrevMonthButtonInitialPosition * _ResolutionCoefDic[Resolution]).ToSize();
+            }
+        }
+
+        public static Size PrevMonthButtonSize
+        {
+            get
+            {
+                return (_PrevMonthButtonSize * _ResolutionCoefDic[Resolution]).ToSize();
+            }
+        }
+
+        public static Point NextMonthButtonInitialPosition
+        {
+            get
+            {
+                return (Point)(_NextMonthButtonInitialPosition * _ResolutionCoefDic[Resolution]).ToSize();
+            }
+        }
+
+        public static Size NextMonthButtonSize
+        {
+            get
+            {
+                return (_NextMonthButtonSize * _ResolutionCoefDic[Resolution]).ToSize();
+            }
+        }
+
+        public static Point ShowMonthLabelInitialPosition
+        {
+            get
+            {
+                return (Point)(_ShowMonthLabelInitialPosition * _ResolutionCoefDic[Resolution]).ToSize();
+            }
+        }
+
+        public static Size ShowMonthLabelSize
+        {
+            get
+            {
+                return (_ShowMonthLabelSize * _ResolutionCoefDic[Resolution]).ToSize();
+            }
+        }
+
+        public static Point NextMonthLabelInitialPosition
+        {
+            get
+            {
+                return (Point)(_NextMonthLabelInitialPosition * _ResolutionCoefDic[Resolution]).ToSize();
+            }
+        }
+
+        public static Size NextMonthLabelSize
+        {
+            get
+            {
+                return (_NextMonthLabelSize * _ResolutionCoefDic[Resolution]).ToSize();
+            }
+        }
     }
 }

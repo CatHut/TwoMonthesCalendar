@@ -33,6 +33,19 @@ namespace TwoMonthesCalendar
             menu.Items.Add("終了", null, (s, e) => {
                 Application.Exit();
             });
+
+            menu.Items.Add("解像度 1920_1080向け", null, (s, e) => {
+                ConstSetting.Resolution = ConstSetting.RESOLUTION.R1920_1080;
+                AdjustCalendar();
+                m_APS.SaveData();
+            });
+
+            menu.Items.Add("解像度 2560_1440向け", null, (s, e) => {
+                ConstSetting.Resolution = ConstSetting.RESOLUTION.R2560_1440;
+                AdjustCalendar();
+                m_APS.SaveData();
+            });
+
             return menu;
         }
 
@@ -49,6 +62,8 @@ namespace TwoMonthesCalendar
 
         private void UpdateCalendar(DateTime showMonth)
         {
+            this.SuspendLayout();
+
             //今の表示を一旦破棄
             RemoveCalendar();
 
@@ -56,6 +71,7 @@ namespace TwoMonthesCalendar
 
             AdjustCalendar();
 
+            this.ResumeLayout();
         }
 
         public void richTextBox_MouseDown(object sender, MouseEventArgs e)
@@ -76,6 +92,20 @@ namespace TwoMonthesCalendar
             }
         }
 
+        public void richTextBox_MouseUp(object sender, MouseEventArgs e)
+        {
+            if ((e.Button & MouseButtons.Middle) == MouseButtons.Middle)
+            {
+                SaveSetting();
+            }
+        }
+
+        private void SaveSetting()
+        {
+            m_APS.Settings.m_Location = this.Location;
+            m_APS.Settings.m_Resolution = ConstSetting.Resolution;
+            m_APS.SaveData();
+        }
 
         private void CreateCalendar(DateTime showMonth)
         {
@@ -129,7 +159,17 @@ namespace TwoMonthesCalendar
                 m_WeekLabelDic1st[wDay].Text = ConstSetting.GetWeekDayText(wDay);
                 m_WeekLabelDic2nd[wDay].Text = ConstSetting.GetWeekDayText(wDay);
 
+                m_WeekLabelDic1st[wDay].TextAlign = ContentAlignment.MiddleCenter;
+                m_WeekLabelDic2nd[wDay].TextAlign = ContentAlignment.MiddleCenter;
+
+                m_WeekLabelDic1st[wDay].ForeColor = Color.White;
+                m_WeekLabelDic2nd[wDay].ForeColor = Color.White;
             }
+
+            //年月表示更新
+            label_ShowMonth.Text = showMonth.ToString("yyyy年MM月");
+            label_NextMonth.Text = nextMonth.ToString("yyyy年MM月");
+
 
         }
 
@@ -229,14 +269,31 @@ namespace TwoMonthesCalendar
                         ConstSetting.SecondMonthPosition.X + ConstSetting.WeekLabelInitialPosition.X + ConstSetting.SeparateSize.Width * (int)key,
                         ConstSetting.SecondMonthPosition.Y + ConstSetting.WeekLabelInitialPosition.Y
                     );
-                    m_WeekLabelDic2nd[key].Size = ConstSetting.WeekLabelSize;
-                }
+                    m_WeekLabelDic2nd[key].Size = ConstSetting.WeekLabelSize;                }
             }
+
+            //ボタンとラベル
+            label_NextMonth.Location = ConstSetting.NextMonthLabelInitialPosition;
+            label_NextMonth.Size = ConstSetting.NextMonthLabelSize;
+            label_NextMonth.TextAlign = ContentAlignment.MiddleCenter;
+            label_NextMonth.ForeColor = Color.White;
+
+            label_ShowMonth.Location = ConstSetting.ShowMonthLabelInitialPosition;
+            label_ShowMonth.Size = ConstSetting.ShowMonthLabelSize;
+            label_ShowMonth.TextAlign = ContentAlignment.MiddleCenter;
+            label_ShowMonth.ForeColor = Color.White;
+
+            button_NextMonth.Location = ConstSetting.NextMonthButtonInitialPosition;
+            button_NextMonth.Size = ConstSetting.NextMonthButtonSize;
+
+            button_PrevMonth.Location = ConstSetting.PrevMonthButtonInitialPosition;
+            button_PrevMonth.Size = ConstSetting.PrevMonthButtonSize;
+
+
         }
 
         private void Save()
         {
-            
 
             if (m_DateObjectDic1st != null)
             {
@@ -269,5 +326,23 @@ namespace TwoMonthesCalendar
             this.Location = m_APS.Settings.m_Location;
         }
 
+        private void button_NextMonth_Click(object sender, EventArgs e)
+        {
+            m_APS.Settings.m_ShowMonth = m_APS.Settings.m_ShowMonth.AddMonths(1);
+            m_APS.SaveData();
+
+            var showMonth = m_APS.Settings.m_ShowMonth;
+            UpdateCalendar(showMonth);
+        }
+
+        private void button_PrevMonth_Click(object sender, EventArgs e)
+        {
+            m_APS.Settings.m_ShowMonth = m_APS.Settings.m_ShowMonth.AddMonths(-1);
+            m_APS.SaveData();
+
+            var showMonth = m_APS.Settings.m_ShowMonth;
+            UpdateCalendar(showMonth);
+
+        }
     }
 }

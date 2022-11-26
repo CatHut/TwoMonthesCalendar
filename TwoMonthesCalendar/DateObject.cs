@@ -29,6 +29,7 @@ namespace TwoMonthesCalendar
             //イベント設定
             this.m_Rtb.MouseDown += new System.Windows.Forms.MouseEventHandler(form.richTextBox_MouseDown);
             this.m_Rtb.MouseMove += new System.Windows.Forms.MouseEventHandler(form.richTextBox_MouseMove);
+            this.m_Rtb.MouseUp += new System.Windows.Forms.MouseEventHandler(form.richTextBox_MouseUp);
             this.m_Rtb.TextChanged += new System.EventHandler(this.richTextBox_TextChanged);
 
             Load();
@@ -81,6 +82,7 @@ namespace TwoMonthesCalendar
             {
                 this.m_Rtb.MouseDown -= new System.Windows.Forms.MouseEventHandler(form.richTextBox_MouseDown);
                 this.m_Rtb.MouseMove -= new System.Windows.Forms.MouseEventHandler(form.richTextBox_MouseMove);
+                this.m_Rtb.MouseUp -= new System.Windows.Forms.MouseEventHandler(form.richTextBox_MouseUp);
                 this.m_Rtb.TextChanged -= new System.EventHandler(this.richTextBox_TextChanged);
                 form.Controls.Remove(m_Rtb);
                 m_Rtb.Dispose();

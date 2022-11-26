@@ -3,7 +3,7 @@
   <Class Name="CatHut.SettingContents" Collapsed="true">
     <Position X="3.5" Y="3.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAACAAAAAAAAI=</HashCode>
       <FileName>AppSetting.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -17,14 +17,14 @@
   <Class Name="TwoMonthesCalendar.DateObject" Collapsed="true">
     <Position X="3.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABgAAAAAAAAAAAAAAAAQAAAAAAAAAgAAAAAAAAACAAA=</HashCode>
+      <HashCode>ABgAgIAAAAAQAAAAAAAQAAAAAAAAAgAAAAAAAAACgCA=</HashCode>
       <FileName>DateObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TwoMonthesCalendar.Form1" Collapsed="true">
     <Position X="5.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IgBAAKgBACAIAQAAAACAAAACAAACAMAAAAAyAAwQAAA=</HashCode>
+      <HashCode>gAAAAAAAACAAAAAAAACAgBACAAAAAEAAAAAAAAAAAAA=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -36,7 +36,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="TwoMonthesCalendar.ConstSetting">
-    <Position X="8.5" Y="2.25" Width="2.5" />
+    <Position X="8.5" Y="0.75" Width="2.5" />
     <Compartments>
       <Compartment Name="Nested Types" Collapsed="false" />
     </Compartments>
@@ -48,7 +48,7 @@
       </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>EAoCABAwAAAAAQIAAAgAAoIAAAAwIAEQAACQgABAAEA=</HashCode>
+      <HashCode>lAoCABgwAAIAiUIEBAoAAoICBARxIEEQBAiQgABAAkQ=</HashCode>
       <FileName>ConstSetting.cs</FileName>
     </TypeIdentifier>
   </Class>
