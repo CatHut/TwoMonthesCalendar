@@ -1,4 +1,5 @@
 using CatHut;
+using System.Windows.Forms;
 
 namespace TwoMonthesCalendar
 {
@@ -8,6 +9,8 @@ namespace TwoMonthesCalendar
 
         Dictionary<DateTime, DateObject> m_DateObjectDic1st;
         Dictionary<DateTime, DateObject> m_DateObjectDic2nd;
+        Dictionary<DayOfWeek, Label> m_WeekLabelDic1st;
+        Dictionary<DayOfWeek, Label> m_WeekLabelDic2nd;
         AppSetting m_APS;
 
 
@@ -17,7 +20,6 @@ namespace TwoMonthesCalendar
             InitializeComponent();
 
             Initialize();
-
 
         }
 
@@ -37,7 +39,19 @@ namespace TwoMonthesCalendar
             //ç°ÇÃï\é¶ÇàÍíUîjä¸
             RemoveCalendar();
 
-            m_DateObjectDic1st = new Dictionary<DateTime, DateObject>();
+            CreateCalendar(showMonth);
+
+            AdjustCalendar();
+
+        }
+
+        private void CreateCalendar(DateTime showMonth)
+        {
+            //ì˙ïtïîï™çÏê¨
+            if (m_DateObjectDic1st == null)
+            {
+                m_DateObjectDic1st = new Dictionary<DateTime, DateObject>();
+            }
 
             var days = DateTime.DaysInMonth(showMonth.Year, showMonth.Month);
             for (int i = 0; i < days; i++)
@@ -46,10 +60,13 @@ namespace TwoMonthesCalendar
                 m_DateObjectDic1st.Add(date, new DateObject(this, date));
             }
 
-            m_DateObjectDic2nd = new Dictionary<DateTime, DateObject>();
 
+            if (m_DateObjectDic2nd == null)
+            {
+                m_DateObjectDic2nd = new Dictionary<DateTime, DateObject>();
+            }
 
-            var nextMonth = m_APS.Settings.m_ShowMonth;
+            var nextMonth = showMonth.AddMonths(1);
 
             days = DateTime.DaysInMonth(nextMonth.Year, nextMonth.Month);
             for (int i = 0; i < days; i++)
@@ -58,7 +75,29 @@ namespace TwoMonthesCalendar
                 m_DateObjectDic2nd.Add(date, new DateObject(this, date));
             }
 
-            AdjustCalendar();
+
+            //ójì˙ÉâÉxÉãçÏê¨
+            foreach(var temp in Enum.GetValues(typeof(DayOfWeek)))
+            {
+                if (m_WeekLabelDic1st == null)
+                {
+                    m_WeekLabelDic1st = new Dictionary<DayOfWeek, Label>();
+                }
+                if (m_WeekLabelDic2nd == null)
+                {
+                    m_WeekLabelDic2nd = new Dictionary<DayOfWeek, Label>();
+                }
+
+                var wDay = (DayOfWeek)temp;
+                m_WeekLabelDic1st.Add(wDay, new Label());
+                m_WeekLabelDic2nd.Add(wDay, new Label());
+                this.Controls.Add(m_WeekLabelDic1st[wDay]);
+                this.Controls.Add(m_WeekLabelDic2nd[wDay]);
+
+                m_WeekLabelDic1st[wDay].Text = ConstSetting.GetWeekDayText(wDay);
+                m_WeekLabelDic2nd[wDay].Text = ConstSetting.GetWeekDayText(wDay);
+
+            }
 
         }
 
@@ -87,11 +126,38 @@ namespace TwoMonthesCalendar
                 m_DateObjectDic2nd.Clear();
             }
 
+
+            if (m_WeekLabelDic1st != null)
+            {
+                var keys = m_WeekLabelDic1st.Keys;
+                foreach (var key in keys)
+                {
+                    this.Controls.Remove(m_WeekLabelDic1st[key]);
+                    m_WeekLabelDic1st[key].Dispose();
+                    m_WeekLabelDic1st[key] = null;
+                }
+                m_WeekLabelDic1st.Clear();
+            }
+
+
+            if (m_WeekLabelDic2nd != null)
+            {
+                var keys = m_WeekLabelDic2nd.Keys;
+                foreach (var key in keys)
+                {
+                    this.Controls.Remove(m_WeekLabelDic2nd[key]);
+                    m_WeekLabelDic2nd[key].Dispose();
+                    m_WeekLabelDic2nd[key] = null;
+                }
+                m_WeekLabelDic2nd.Clear();
+            }
+
+
         }
 
         private void AdjustCalendar()
         {
-            //å©âhÇ¶í≤êÆ
+            //å©âhÇ¶í≤êÆ ÉJÉåÉìÉ_Å[ïîï™
             {
                 var keys = m_DateObjectDic1st.Keys;
 
@@ -110,7 +176,30 @@ namespace TwoMonthesCalendar
                 }
             }
 
+            //å©âhÇ¶í≤êÆ ójì˙ÉâÉxÉãïîï™
+            {
+                var keys = m_WeekLabelDic1st.Keys;
+                foreach (var key in keys)
+                {
+                    m_WeekLabelDic1st[key].Location = new Point(
+                        ConstSetting.WeekLabelInitialPosition.X + ConstSetting.SeparateSize.Width * (int)key,
+                        ConstSetting.WeekLabelInitialPosition.Y
+                    );
+                    m_WeekLabelDic1st[key].Size = ConstSetting.WeekLabelSize;
+                }
+            }
 
+            {
+                var keys = m_WeekLabelDic2nd.Keys;
+                foreach (var key in keys)
+                {
+                    m_WeekLabelDic2nd[key].Location = new Point(
+                        ConstSetting.SecondMonthPosition.X + ConstSetting.WeekLabelInitialPosition.X + ConstSetting.SeparateSize.Width * (int)key,
+                        ConstSetting.SecondMonthPosition.Y + ConstSetting.WeekLabelInitialPosition.Y
+                    );
+                    m_WeekLabelDic2nd[key].Size = ConstSetting.WeekLabelSize;
+                }
+            }
         }
 
 

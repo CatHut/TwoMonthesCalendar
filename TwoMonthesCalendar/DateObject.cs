@@ -17,6 +17,13 @@ namespace TwoMonthesCalendar
             m_DayLabel = new Label();
             m_Rtb = new RichTextBox();
 
+            //プロパティ初期化
+            m_DayLabel.BackColor = Color.White;
+            
+            
+            m_Rtb.BorderStyle = BorderStyle.None;
+
+
             AddToForm(form);
         }
 
@@ -60,9 +67,13 @@ namespace TwoMonthesCalendar
 
             m_DayLabel.Text = date.Day.ToString();
 
+            if (ConstSetting.HolidayDic.ContainsKey(date))
+            {
+                m_DayLabel.Text += " " + ConstSetting.HolidayDic[date];
+            }
+
             if (is1st == true)
             {
-                m_DayLabel.Text = date.Day.ToString();
                 m_DayLabel.Location = new Point(
                     ConstSetting.DateLabelInitialPosition.X + ConstSetting.SeparateSize.Width * weekDay,
                     ConstSetting.DateLabelInitialPosition.Y + ConstSetting.SeparateSize.Height * weekOfMonth
