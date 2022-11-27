@@ -62,6 +62,16 @@ namespace TwoMonthesCalendar
             }
         }
 
+        public void SetDateFont()
+        {
+            m_DayLabel.Font = ConstSetting.DateLabelFont;
+        }
+
+        public void SetTextBoxFont()
+        {
+            m_Rtb.Font = ConstSetting.TextBoxDefaultFont;
+        }
+
         public void SetVisible(bool visible)
         {
             m_DayLabel.Visible = visible;

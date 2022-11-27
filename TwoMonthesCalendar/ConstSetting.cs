@@ -33,7 +33,7 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 日付ラベルのサイズ
         /// </summary>
-        private static readonly System.Drawing.Size _DateLabelSize = new Size(200, 32);
+        private static readonly System.Drawing.Size _DateLabelSize = new Size(200, 22);
         /// <summary>
         /// 二月目の位置
         /// </summary>
@@ -45,11 +45,11 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// テキストボックスの先頭位置
         /// </summary>
-        private static readonly System.Drawing.Size _TextBoxInitialPosition = new Size(0, 60);
+        private static readonly System.Drawing.Size _TextBoxInitialPosition = new Size(0, 50);
         /// <summary>
         /// テキストボックスのサイズ
         /// </summary>
-        private static readonly System.Drawing.Size _TextBoxSize = new Size(200, 75);
+        private static readonly System.Drawing.Size _TextBoxSize = new Size(200, 85);
         /// <summary>
         /// 曜日表示の先頭位置
         /// </summary>
@@ -107,6 +107,9 @@ namespace TwoMonthesCalendar
             { RESOLUTION.R1920_1080, 0.75f },
             { RESOLUTION.R2560_1440, 1f }
         };
+
+        private static float FontSizeDiff = 3f;
+
 
         private static Dictionary<RESOLUTION, Size> _FormSizeDic = new Dictionary<RESOLUTION, Size> {
             { RESOLUTION.R1920_1080, new Size(1920, 1080) },
@@ -376,6 +379,75 @@ namespace TwoMonthesCalendar
             get
             {
                 return (_NextMonthLabelSize * _ResolutionCoefDic[Resolution]).ToSize();
+            }
+        }
+
+        private static Font _DateLabelFont = new Font("Yu Gothic UI",10f);
+        private static Font _TextBoxDefaultFont = new Font("Yu Gothic UI", 9.5f);
+        private static Font _WeekLabelFont = new Font("Yu Gothic UI", 12f, FontStyle.Bold);
+        private static Font _ShowMonthLabelFont = new Font("Yu Gothic UI", 12f);
+        private static Font _NextMonthLabelFont = new Font("Yu Gothic UI", 12f);
+
+        public static void FontUpdate()
+        {
+            switch (Resolution)
+            {
+                case RESOLUTION.R1920_1080:
+                    _DateLabelFont = new Font(_DateLabelFont.Name, _DateLabelFont.Size - FontSizeDiff);
+                    _TextBoxDefaultFont = new Font(_TextBoxDefaultFont.Name, _TextBoxDefaultFont.Size - FontSizeDiff);
+                    _WeekLabelFont = new Font(_WeekLabelFont.Name, _WeekLabelFont.Size - FontSizeDiff);
+                    _ShowMonthLabelFont = new Font(_ShowMonthLabelFont.Name, _ShowMonthLabelFont.Size - FontSizeDiff);
+                    _NextMonthLabelFont = new Font(_NextMonthLabelFont.Name, _NextMonthLabelFont.Size - FontSizeDiff);
+                    break;
+                case RESOLUTION.R2560_1440:
+                    _DateLabelFont = new Font(_DateLabelFont.Name, _DateLabelFont.Size + FontSizeDiff);
+                    _TextBoxDefaultFont = new Font(_TextBoxDefaultFont.Name, _TextBoxDefaultFont.Size + FontSizeDiff);
+                    _WeekLabelFont = new Font(_WeekLabelFont.Name, _WeekLabelFont.Size + FontSizeDiff);
+                    _ShowMonthLabelFont = new Font(_ShowMonthLabelFont.Name, _ShowMonthLabelFont.Size + FontSizeDiff);
+                    _NextMonthLabelFont = new Font(_NextMonthLabelFont.Name, _NextMonthLabelFont.Size + FontSizeDiff);
+                    break;
+            }
+
+        }
+
+        public static Font DateLabelFont
+        {
+            get
+            {
+                return _DateLabelFont;
+            }
+        }
+
+        public static Font TextBoxDefaultFont
+        {
+            get
+            {
+                return _TextBoxDefaultFont;
+            }
+        }
+
+        public static Font WeekLabelFont
+        {
+            get
+            {
+                return _WeekLabelFont;
+
+            }
+        }
+
+        public static Font ShowMonthLabelFont
+        {
+            get
+            {
+                return _ShowMonthLabelFont;
+            }
+        }
+
+        public static Font NextMonthLabelFont
+        {
+            get
+            {
+                return _NextMonthLabelFont;
             }
         }
     }

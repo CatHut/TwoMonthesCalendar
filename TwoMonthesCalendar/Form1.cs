@@ -36,15 +36,25 @@ namespace TwoMonthesCalendar
             });
 
             menu.Items.Add("解像度 1920_1080向け", null, (s, e) => {
-                ConstSetting.Resolution = ConstSetting.RESOLUTION.R1920_1080;
-                AdjustCalendar();
-                m_APS.SaveData();
+
+                if(ConstSetting.Resolution != ConstSetting.RESOLUTION.R1920_1080)
+                {
+                    ConstSetting.Resolution = ConstSetting.RESOLUTION.R1920_1080;
+                    ConstSetting.FontUpdate();
+                    AdjustCalendar();
+                    m_APS.SaveData();
+                }
             });
 
             menu.Items.Add("解像度 2560_1440向け", null, (s, e) => {
-                ConstSetting.Resolution = ConstSetting.RESOLUTION.R2560_1440;
-                AdjustCalendar();
-                m_APS.SaveData();
+                if (ConstSetting.Resolution != ConstSetting.RESOLUTION.R2560_1440)
+                {
+                    ConstSetting.Resolution = ConstSetting.RESOLUTION.R2560_1440;
+                    ConstSetting.FontUpdate();
+                    AdjustCalendar();
+                    m_APS.SaveData();
+                }
+
             });
 
             return menu;
@@ -58,6 +68,11 @@ namespace TwoMonthesCalendar
             var showMonth = m_APS.Settings.m_ShowMonth;
 
             this.DoubleBuffered = true;
+
+            if(ConstSetting.Resolution == ConstSetting.RESOLUTION.R1920_1080)
+            {
+                ConstSetting.FontUpdate();
+            }
 
             CreateCalendar();
             AddControls();
@@ -276,7 +291,7 @@ namespace TwoMonthesCalendar
             }
 
 
-            //曜日ラベル作成
+            //曜日ラベル設定
             foreach (var temp in Enum.GetValues(typeof(DayOfWeek)))
             {
                 var wDay = (DayOfWeek)temp;
@@ -290,16 +305,26 @@ namespace TwoMonthesCalendar
                 m_WeekLabelDic1st[wDay].ForeColor = Color.White;
                 m_WeekLabelDic2nd[wDay].ForeColor = Color.White;
 
+                m_WeekLabelDic1st[wDay].BackColor = Color.Gray;
+                m_WeekLabelDic2nd[wDay].BackColor = Color.Gray;
+
+
                 if (wDay == DayOfWeek.Saturday)
                 {
-                    m_WeekLabelDic1st[wDay].ForeColor = Color.SkyBlue;
-                    m_WeekLabelDic2nd[wDay].ForeColor = Color.SkyBlue;
+                    m_WeekLabelDic1st[wDay].BackColor = Color.Blue;
+                    m_WeekLabelDic2nd[wDay].BackColor = Color.Blue;
+
+                    m_WeekLabelDic1st[wDay].ForeColor = Color.White;
+                    m_WeekLabelDic2nd[wDay].ForeColor = Color.White;
                 }
 
                 if (wDay == DayOfWeek.Sunday)
                 {
-                    m_WeekLabelDic1st[wDay].ForeColor = Color.Red;
-                    m_WeekLabelDic2nd[wDay].ForeColor = Color.Red;
+                    m_WeekLabelDic1st[wDay].BackColor = Color.Red;
+                    m_WeekLabelDic2nd[wDay].BackColor = Color.Red;
+
+                    m_WeekLabelDic1st[wDay].ForeColor = Color.White;
+                    m_WeekLabelDic2nd[wDay].ForeColor = Color.White;
 
                 }
 
@@ -373,6 +398,7 @@ namespace TwoMonthesCalendar
 
         private void AdjustCalendar()
         {
+
             //見栄え調整 カレンダー部分
             //位置調整
             {
@@ -383,6 +409,8 @@ namespace TwoMonthesCalendar
                     var month = new DateTime(key.Year, key.Month, 1);
                     if (m_APS.Settings.m_ShowMonth == month) {
                         m_DateObjectDic1st[key].SetPosition(key, true);
+                        m_DateObjectDic1st[key].SetDateFont();
+                        m_DateObjectDic1st[key].SetTextBoxFont();
                     }
                 }
             }
@@ -397,6 +425,8 @@ namespace TwoMonthesCalendar
                     if (nextMonth == month)
                     {
                         m_DateObjectDic2nd[key].SetPosition(key, false);
+                        m_DateObjectDic2nd[key].SetDateFont();
+                        m_DateObjectDic2nd[key].SetTextBoxFont();
                     }
                 }
             }
@@ -450,6 +480,7 @@ namespace TwoMonthesCalendar
                         ConstSetting.WeekLabelInitialPosition.Y
                     );
                     m_WeekLabelDic1st[key].Size = ConstSetting.WeekLabelSize;
+                    m_WeekLabelDic1st[key].Font = ConstSetting.WeekLabelFont;
                 }
             }
 
@@ -461,7 +492,9 @@ namespace TwoMonthesCalendar
                         ConstSetting.SecondMonthPosition.X + ConstSetting.WeekLabelInitialPosition.X + ConstSetting.SeparateSize.Width * (int)key,
                         ConstSetting.SecondMonthPosition.Y + ConstSetting.WeekLabelInitialPosition.Y
                     );
-                    m_WeekLabelDic2nd[key].Size = ConstSetting.WeekLabelSize;                }
+                    m_WeekLabelDic2nd[key].Size = ConstSetting.WeekLabelSize;
+                    m_WeekLabelDic2nd[key].Font = ConstSetting.WeekLabelFont;
+                }
             }
 
             //ボタンとラベル
@@ -469,11 +502,13 @@ namespace TwoMonthesCalendar
             label_NextMonth.Size = ConstSetting.NextMonthLabelSize;
             label_NextMonth.TextAlign = ContentAlignment.MiddleCenter;
             label_NextMonth.ForeColor = Color.White;
+            label_NextMonth.Font = ConstSetting.NextMonthLabelFont;
 
             label_ShowMonth.Location = ConstSetting.ShowMonthLabelInitialPosition;
             label_ShowMonth.Size = ConstSetting.ShowMonthLabelSize;
             label_ShowMonth.TextAlign = ContentAlignment.MiddleCenter;
             label_ShowMonth.ForeColor = Color.White;
+            label_ShowMonth.Font = ConstSetting.ShowMonthLabelFont;
 
             button_NextMonth.Location = ConstSetting.NextMonthButtonInitialPosition;
             button_NextMonth.Size = ConstSetting.NextMonthButtonSize;
@@ -481,6 +516,7 @@ namespace TwoMonthesCalendar
             button_PrevMonth.Location = ConstSetting.PrevMonthButtonInitialPosition;
             button_PrevMonth.Size = ConstSetting.PrevMonthButtonSize;
 
+            this.Size = ConstSetting.FormSize;
 
         }
 
