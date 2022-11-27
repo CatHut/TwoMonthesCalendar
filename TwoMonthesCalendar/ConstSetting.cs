@@ -383,10 +383,10 @@ namespace TwoMonthesCalendar
         }
 
         private static Font _DateLabelFont = new Font("Yu Gothic UI",10f);
-        private static Font _TextBoxDefaultFont = new Font("Yu Gothic UI", 9.5f);
+        private static Font _TextBoxDefaultFont = new Font("Yu Gothic UI", 10f);
         private static Font _WeekLabelFont = new Font("Yu Gothic UI", 12f, FontStyle.Bold);
-        private static Font _ShowMonthLabelFont = new Font("Yu Gothic UI", 12f);
-        private static Font _NextMonthLabelFont = new Font("Yu Gothic UI", 12f);
+        private static Font _ShowMonthLabelFont = new Font("Yu Gothic UI", 14f);
+        private static Font _NextMonthLabelFont = new Font("Yu Gothic UI", 14f);
 
         public static void FontUpdate()
         {

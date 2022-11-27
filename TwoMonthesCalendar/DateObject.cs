@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TwoMonthesCalendar
 {
@@ -24,6 +25,8 @@ namespace TwoMonthesCalendar
             m_DayLabel.BackColor = Color.White;
             
             m_Rtb.BorderStyle = BorderStyle.None;
+            m_Rtb.ScrollBars = RichTextBoxScrollBars.None;
+            m_Rtb.LanguageOption = RichTextBoxLanguageOptions.UIFonts;
 
             //イベント設定
             this.m_Rtb.MouseDown += new System.Windows.Forms.MouseEventHandler(form.richTextBox_MouseDown);
@@ -76,6 +79,12 @@ namespace TwoMonthesCalendar
         {
             m_DayLabel.Visible = visible;
             m_Rtb.Visible = visible;
+        }
+
+        public void SetBackColor(Color color)
+        {
+            m_DayLabel.BackColor = color;
+            m_Rtb.BackColor = color;
         }
 
 

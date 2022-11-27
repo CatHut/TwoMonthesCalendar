@@ -1,4 +1,5 @@
 using CatHut;
+using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -19,6 +20,7 @@ namespace TwoMonthesCalendar
 
         public Form1()
         {
+            this.WindowState = FormWindowState.Minimized;
             InitializeComponent();
 
             notifyIconTwoMonthesCalendar.ContextMenuStrip = ContextMenu();
@@ -77,6 +79,8 @@ namespace TwoMonthesCalendar
             CreateCalendar();
             AddControls();
             UpdateCalendar(showMonth);
+
+
 
         }
 
@@ -246,17 +250,31 @@ namespace TwoMonthesCalendar
                 m_WeekLabelDic1st[wDay].ForeColor = Color.White;
                 m_WeekLabelDic2nd[wDay].ForeColor = Color.White;
             }
+
+
+            //今月次月表示
+            label_NextMonth.TextAlign = ContentAlignment.MiddleCenter;
+            label_NextMonth.ForeColor = Color.White;
+            label_NextMonth.BackColor = Color.DarkGray;
+            label_ShowMonth.TextAlign = ContentAlignment.MiddleCenter;
+            label_ShowMonth.ForeColor = Color.White;
+            label_ShowMonth.BackColor = Color.DarkGray;
+
+
+
         }
 
         private void RefreshCalendar(DateTime showMonth)
         {
             //日付部分設定
+            var color = Color.WhiteSmoke;   //背景色
             var nextMonth = showMonth.AddMonths(1);
             {
                 var days = DateTime.DaysInMonth(showMonth.Year, showMonth.Month);
 
                 var keys = m_DateObjectDic1st.Keys.ToList();
                 int i = 0;
+
                 foreach (var key in keys)
                 {
                     if (i >= days) { break; }
@@ -265,6 +283,7 @@ namespace TwoMonthesCalendar
                     m_DateObjectDic1st[date] = m_DateObjectDic1st[key];
                     m_DateObjectDic1st[date].ChangeDate(date);
                     m_DateObjectDic1st[date].SetDateColor(date);
+                    m_DateObjectDic1st[date].SetBackColor(color);
                     m_DateObjectDic1st.Remove(key);
 
                     i++;
@@ -284,6 +303,7 @@ namespace TwoMonthesCalendar
                     m_DateObjectDic2nd[date] = m_DateObjectDic2nd[key];
                     m_DateObjectDic2nd[date].ChangeDate(date);
                     m_DateObjectDic2nd[date].SetDateColor(date);
+                    m_DateObjectDic2nd[date].SetBackColor(color);
                     m_DateObjectDic2nd.Remove(key);
 
                     i++;
@@ -333,8 +353,8 @@ namespace TwoMonthesCalendar
 
 
             //年月表示更新
-            label_ShowMonth.Text = showMonth.ToString("yyyy年MM月");
-            label_NextMonth.Text = nextMonth.ToString("yyyy年MM月");
+            label_ShowMonth.Text = showMonth.ToString("yyyy年 MM月");
+            label_NextMonth.Text = nextMonth.ToString("yyyy年 MM月");
 
 
         }
@@ -500,14 +520,10 @@ namespace TwoMonthesCalendar
             //ボタンとラベル
             label_NextMonth.Location = ConstSetting.NextMonthLabelInitialPosition;
             label_NextMonth.Size = ConstSetting.NextMonthLabelSize;
-            label_NextMonth.TextAlign = ContentAlignment.MiddleCenter;
-            label_NextMonth.ForeColor = Color.White;
             label_NextMonth.Font = ConstSetting.NextMonthLabelFont;
 
             label_ShowMonth.Location = ConstSetting.ShowMonthLabelInitialPosition;
             label_ShowMonth.Size = ConstSetting.ShowMonthLabelSize;
-            label_ShowMonth.TextAlign = ContentAlignment.MiddleCenter;
-            label_ShowMonth.ForeColor = Color.White;
             label_ShowMonth.Font = ConstSetting.ShowMonthLabelFont;
 
             button_NextMonth.Location = ConstSetting.NextMonthButtonInitialPosition;
@@ -517,6 +533,8 @@ namespace TwoMonthesCalendar
             button_PrevMonth.Size = ConstSetting.PrevMonthButtonSize;
 
             this.Size = ConstSetting.FormSize;
+
+
 
         }
 
@@ -546,12 +564,7 @@ namespace TwoMonthesCalendar
 
         private void Form1_Shown(object sender, EventArgs e)
         {
-            FormBorderStyle = FormBorderStyle.None;//フォームの枠を非表示にする
-            this.TransparencyKey = this.BackColor;
 
-
-            this.Size = ConstSetting.FormSize;
-            this.Location = m_APS.Settings.m_Location;
         }
 
         private void button_NextMonth_Click(object sender, EventArgs e)
@@ -571,6 +584,16 @@ namespace TwoMonthesCalendar
             var showMonth = m_APS.Settings.m_ShowMonth;
             UpdateCalendar(showMonth);
 
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            FormBorderStyle = FormBorderStyle.None;//フォームの枠を非表示にする
+            this.TransparencyKey = this.BackColor;
+
+            this.WindowState = FormWindowState.Normal;
+            this.Size = ConstSetting.FormSize;
+            this.Location = m_APS.Settings.m_Location;
         }
     }
 }

@@ -45,7 +45,7 @@
             // 
             // label_ShowMonth
             // 
-            this.label_ShowMonth.Location = new System.Drawing.Point(764, 275);
+            this.label_ShowMonth.Location = new System.Drawing.Point(186, 16);
             this.label_ShowMonth.Name = "label_ShowMonth";
             this.label_ShowMonth.Size = new System.Drawing.Size(38, 15);
             this.label_ShowMonth.TabIndex = 0;
@@ -54,7 +54,7 @@
             // 
             // label_NextMonth
             // 
-            this.label_NextMonth.Location = new System.Drawing.Point(764, 331);
+            this.label_NextMonth.Location = new System.Drawing.Point(186, 72);
             this.label_NextMonth.Name = "label_NextMonth";
             this.label_NextMonth.Size = new System.Drawing.Size(38, 15);
             this.label_NextMonth.TabIndex = 1;
@@ -63,7 +63,7 @@
             // 
             // button_PrevMonth
             // 
-            this.button_PrevMonth.Location = new System.Drawing.Point(601, 301);
+            this.button_PrevMonth.Location = new System.Drawing.Point(23, 42);
             this.button_PrevMonth.Name = "button_PrevMonth";
             this.button_PrevMonth.Size = new System.Drawing.Size(75, 23);
             this.button_PrevMonth.TabIndex = 2;
@@ -73,7 +73,7 @@
             // 
             // button_NextMonth
             // 
-            this.button_NextMonth.Location = new System.Drawing.Point(896, 301);
+            this.button_NextMonth.Location = new System.Drawing.Point(318, 42);
             this.button_NextMonth.Name = "button_NextMonth";
             this.button_NextMonth.Size = new System.Drawing.Size(75, 23);
             this.button_NextMonth.TabIndex = 3;
@@ -85,13 +85,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1993, 764);
+            this.ClientSize = new System.Drawing.Size(420, 110);
             this.Controls.Add(this.button_NextMonth);
             this.Controls.Add(this.button_PrevMonth);
             this.Controls.Add(this.label_NextMonth);
             this.Controls.Add(this.label_ShowMonth);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.ShowInTaskbar = false;
+            this.Text = "TwoMonthesCalendar";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.ResumeLayout(false);
 
