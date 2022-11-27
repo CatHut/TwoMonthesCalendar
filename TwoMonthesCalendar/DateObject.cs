@@ -41,6 +41,27 @@ namespace TwoMonthesCalendar
             Load();
         }
 
+        public void SetDateColor(DateTime dt)
+        {
+            var kind = ConstSetting.GetDayKind(dt);
+
+            switch (kind)
+            {
+                case ConstSetting.DAY_KIND.WEEKDAY:
+                    m_DayLabel.ForeColor = Color.Black;
+                    break;
+                case ConstSetting.DAY_KIND.SATURDAY:
+                    m_DayLabel.ForeColor = Color.Blue;
+                    break;
+                case ConstSetting.DAY_KIND.HOLYDAY:
+                    m_DayLabel.ForeColor = Color.Red;
+                    break;
+                default:
+                    m_DayLabel.ForeColor = Color.Black;
+                    break;
+            }
+        }
+
         public void SetVisible(bool visible)
         {
             m_DayLabel.Visible = visible;

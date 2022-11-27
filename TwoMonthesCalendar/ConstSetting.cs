@@ -19,6 +19,13 @@ namespace TwoMonthesCalendar
             R2560_1440
         }
 
+        public enum DAY_KIND
+        {
+            WEEKDAY,
+            SATURDAY,
+            HOLYDAY
+        }
+
         /// <summary>
         /// 日付ラベルの先頭位置
         /// </summary>
@@ -128,6 +135,26 @@ namespace TwoMonthesCalendar
             }
         }
 
+        public static DAY_KIND GetDayKind(DateTime dt)
+        {
+            var ret = DAY_KIND.WEEKDAY;
+            if(dt.DayOfWeek== DayOfWeek.Saturday) {
+                ret = DAY_KIND.SATURDAY;
+            }
+
+            if (dt.DayOfWeek == DayOfWeek.Sunday)
+            {
+                ret = DAY_KIND.HOLYDAY;
+            }
+
+            if(HolidayDic.ContainsKey(dt))
+            {
+                ret = DAY_KIND.HOLYDAY;
+            }
+
+            return ret;
+        }
+
         /// <summary>
         /// テキストボックスのサイズ
         /// </summary>
@@ -183,6 +210,11 @@ namespace TwoMonthesCalendar
 
                 return _HolidayDic;
             }
+        }
+
+        public static bool IsHoliday(DateTime date)
+        {
+            return _HolidayDic.ContainsKey(date);
         }
 
 

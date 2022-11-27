@@ -17,14 +17,14 @@
   <Class Name="TwoMonthesCalendar.DateObject" Collapsed="true">
     <Position X="3.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>ABgAgIAAAAAQAAAAAAAQAAAAAAAAAgAAAAAAAAACgCA=</HashCode>
+      <HashCode>ABAAgIAAAAAYAAAAEAAQAAAAAAABAgAAAAAAAAACgCA=</HashCode>
       <FileName>DateObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="TwoMonthesCalendar.Form1" Collapsed="true">
     <Position X="5.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAAAAAAAACAAAAAAAACAgBACAAAAAEAAAAAAAAAAAAA=</HashCode>
+      <HashCode>pgBAAIhAACgAAAAAACSAgBACAAAiAMIAAAAAABQQBAA=</HashCode>
       <FileName>Form1.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -46,9 +46,14 @@
           <NewMemberFileName>ConstSetting.cs</NewMemberFileName>
         </TypeIdentifier>
       </Enum>
+      <Enum Name="TwoMonthesCalendar.ConstSetting.DAY_KIND" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ConstSetting.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>lAoCABgwAAIAiUIEBAoAAoICBARxIEEQBAiQgABAAkQ=</HashCode>
+      <HashCode>lAoGABgwAAIAiUIEBAoAAoICBARxIEEQBAiQgABAAkQ=</HashCode>
       <FileName>ConstSetting.cs</FileName>
     </TypeIdentifier>
   </Class>

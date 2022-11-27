@@ -235,8 +235,6 @@ namespace TwoMonthesCalendar
 
         private void RefreshCalendar(DateTime showMonth)
         {
-
-
             //ì˙ïtïîï™ê›íË
             var nextMonth = showMonth.AddMonths(1);
             {
@@ -251,6 +249,7 @@ namespace TwoMonthesCalendar
                     var date = new DateTime(showMonth.Year, showMonth.Month, i + 1);
                     m_DateObjectDic1st[date] = m_DateObjectDic1st[key];
                     m_DateObjectDic1st[date].ChangeDate(date);
+                    m_DateObjectDic1st[date].SetDateColor(date);
                     m_DateObjectDic1st.Remove(key);
 
                     i++;
@@ -269,6 +268,7 @@ namespace TwoMonthesCalendar
                     var date = new DateTime(nextMonth.Year, nextMonth.Month, i + 1);
                     m_DateObjectDic2nd[date] = m_DateObjectDic2nd[key];
                     m_DateObjectDic2nd[date].ChangeDate(date);
+                    m_DateObjectDic2nd[date].SetDateColor(date);
                     m_DateObjectDic2nd.Remove(key);
 
                     i++;
@@ -289,6 +289,21 @@ namespace TwoMonthesCalendar
 
                 m_WeekLabelDic1st[wDay].ForeColor = Color.White;
                 m_WeekLabelDic2nd[wDay].ForeColor = Color.White;
+
+                if (wDay == DayOfWeek.Saturday)
+                {
+                    m_WeekLabelDic1st[wDay].ForeColor = Color.SkyBlue;
+                    m_WeekLabelDic2nd[wDay].ForeColor = Color.SkyBlue;
+                }
+
+                if (wDay == DayOfWeek.Sunday)
+                {
+                    m_WeekLabelDic1st[wDay].ForeColor = Color.Red;
+                    m_WeekLabelDic2nd[wDay].ForeColor = Color.Red;
+
+                }
+
+
             }
 
 
