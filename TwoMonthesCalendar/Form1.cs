@@ -1,6 +1,7 @@
 using CatHut;
 using System.Drawing;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Forms;
 
 namespace TwoMonthesCalendar
@@ -70,8 +71,9 @@ namespace TwoMonthesCalendar
             var showMonth = m_APS.Settings.m_ShowMonth;
 
             this.DoubleBuffered = true;
+            this.MinimizeBox = false;
 
-            if(ConstSetting.Resolution == ConstSetting.RESOLUTION.R1920_1080)
+            if (ConstSetting.Resolution == ConstSetting.RESOLUTION.R1920_1080)
             {
                 ConstSetting.FontUpdate();
             }
@@ -79,8 +81,6 @@ namespace TwoMonthesCalendar
             CreateCalendar();
             AddControls();
             UpdateCalendar(showMonth);
-
-
 
         }
 
@@ -624,6 +624,49 @@ namespace TwoMonthesCalendar
             this.WindowState = FormWindowState.Normal;
             this.Size = ConstSetting.FormSize;
             this.Location = m_APS.Settings.m_Location;
+
+
         }
+
+
+        //EnumWindows(EnumerateWindow, IntPtr.Zero);
+
+        //public delegate bool EnumWindowCallBack(IntPtr hwnd, IntPtr lParam);
+
+        //[DllImport("USER32.DLL", EntryPoint = "FindWindowEx")]
+        //private static extern IntPtr FindWindowEx(IntPtr hWnd1, IntPtr hWnd2, string lpsz1, string lpsz2);
+
+        //// SetParent 関数
+        //[DllImport("USER32.DLL", CharSet = CharSet.Auto)]
+        //private static extern System.IntPtr SetParent(
+        //    System.IntPtr hWndChild,
+        //    System.IntPtr hWndNewParent
+        //);
+
+        //[DllImport("USER32.Dll")]
+        //static extern int EnumWindows(EnumWindowCallBack x, IntPtr y);
+
+        //[DllImport("User32.Dll", CharSet = CharSet.Unicode)]
+        //public static extern int GetClassName(IntPtr hWnd, StringBuilder s, int nMaxCount);
+
+
+        //// ウィンドウを列挙するためのコールバックメソッド
+        //private bool EnumerateWindow(IntPtr hWnd, IntPtr lParam)
+        //{
+        //    StringBuilder sbClassName = new StringBuilder(256);
+        //    int result = GetClassName(hWnd, sbClassName, 256);
+        //    string className = sbClassName.ToString();
+        //    if (className.Equals("WorkerW") || className.Equals("Progman"))
+        //    {
+        //        IntPtr hDt = FindWindowEx(hWnd, IntPtr.Zero, "SHELLDLL_DefView", null);
+        //        if (hDt != null && hDt != IntPtr.Zero)
+        //        {
+        //            SetParent(this.Handle, hDt);
+        //        }
+        //    }
+        //    return true;
+        //}
+
+
     }
 }
