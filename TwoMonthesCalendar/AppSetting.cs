@@ -18,13 +18,15 @@ namespace CatHut {
         public DateTime m_ShowMonth;
         public Point m_Location;
         public ConstSetting.RESOLUTION m_Resolution;
+        public ConstSetting.LAYOUT_DIRECTION m_LayoutDirection;
 
 
         //コンストラクタ（初期値指定を実装）
         public SettingContents() {
             this.m_ShowMonth = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             this.m_Location = new Point(0, 0);
-            this.m_Resolution = ConstSetting.RESOLUTION.R2560_1440; 
+            this.m_Resolution = ConstSetting.RESOLUTION.R2560_1440;
+            this.m_LayoutDirection = ConstSetting.LAYOUT_DIRECTION.VIRTICAL;
         }
 
 

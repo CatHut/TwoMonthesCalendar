@@ -57,8 +57,28 @@ namespace TwoMonthesCalendar
                     AdjustCalendar();
                     m_APS.SaveData();
                 }
-
             });
+
+
+            if (ConstSetting.LayoutDirection == ConstSetting.LAYOUT_DIRECTION.VIRTICAL)
+            {
+                menu.Items.Add("横配置", null, (s, e) =>
+                {
+                    ConstSetting.LayoutDirection = ConstSetting.LAYOUT_DIRECTION.HORIZONTAL;
+                    AdjustCalendar();
+                    m_APS.SaveData();
+                });
+            }
+            else
+            {
+                menu.Items.Add("縦配置", null, (s, e) =>
+                {
+                    ConstSetting.LayoutDirection = ConstSetting.LAYOUT_DIRECTION.VIRTICAL;
+                    AdjustCalendar();
+                    m_APS.SaveData();
+                });
+
+            }
 
             return menu;
         }
@@ -68,6 +88,7 @@ namespace TwoMonthesCalendar
             m_APS = new AppSetting();
 
             ConstSetting.Resolution = m_APS.Settings.m_Resolution;
+            ConstSetting.LayoutDirection = m_APS.Settings.m_LayoutDirection;
             var showMonth = m_APS.Settings.m_ShowMonth;
 
             this.DoubleBuffered = true;
@@ -104,31 +125,6 @@ namespace TwoMonthesCalendar
 
 
             this.Refresh();
-        }
-
-        [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(HandleRef hWnd, int msg, IntPtr wParam, IntPtr lParam);
-        private const int WM_SETREDRAW = 0x000B;
-
-        /// <summary>
-        /// コントロールの再描画を停止させる
-        /// </summary>
-        /// <param name="control">対象のコントロール</param>
-        public static void BeginControlUpdate(Control control)
-        {
-            SendMessage(new HandleRef(control, control.Handle),
-                WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero);
-        }
-
-        /// <summary>
-        /// コントロールの再描画を再開させる
-        /// </summary>
-        /// <param name="control">対象のコントロール</param>
-        public static void EndControlUpdate(Control control)
-        {
-            SendMessage(new HandleRef(control, control.Handle),
-                WM_SETREDRAW, new IntPtr(1), IntPtr.Zero);
-            control.Invalidate();
         }
 
 
@@ -196,6 +192,7 @@ namespace TwoMonthesCalendar
         {
             m_APS.Settings.m_Location = this.Location;
             m_APS.Settings.m_Resolution = ConstSetting.Resolution;
+            m_APS.Settings.m_LayoutDirection = ConstSetting.LayoutDirection;
             m_APS.SaveData();
         }
 
@@ -628,7 +625,7 @@ namespace TwoMonthesCalendar
 
         }
 
-
+        //最背面表示試行（失敗）
         //EnumWindows(EnumerateWindow, IntPtr.Zero);
 
         //public delegate bool EnumWindowCallBack(IntPtr hwnd, IntPtr lParam);
@@ -665,6 +662,34 @@ namespace TwoMonthesCalendar
         //        }
         //    }
         //    return true;
+        //}
+
+
+
+        //ちらつき防止試行（不要）
+        //[DllImport("user32.dll")]
+        //public static extern IntPtr SendMessage(HandleRef hWnd, int msg, IntPtr wParam, IntPtr lParam);
+        //private const int WM_SETREDRAW = 0x000B;
+
+        ///// <summary>
+        ///// コントロールの再描画を停止させる
+        ///// </summary>
+        ///// <param name="control">対象のコントロール</param>
+        //public static void BeginControlUpdate(Control control)
+        //{
+        //    SendMessage(new HandleRef(control, control.Handle),
+        //        WM_SETREDRAW, IntPtr.Zero, IntPtr.Zero);
+        //}
+
+        ///// <summary>
+        ///// コントロールの再描画を再開させる
+        ///// </summary>
+        ///// <param name="control">対象のコントロール</param>
+        //public static void EndControlUpdate(Control control)
+        //{
+        //    SendMessage(new HandleRef(control, control.Handle),
+        //        WM_SETREDRAW, new IntPtr(1), IntPtr.Zero);
+        //    control.Invalidate();
         //}
 
 

@@ -26,6 +26,12 @@ namespace TwoMonthesCalendar
             HOLYDAY
         }
 
+        public enum LAYOUT_DIRECTION
+        {
+            VIRTICAL,
+            HORIZONTAL
+        }
+
         /// <summary>
         /// 日付ラベルの先頭位置
         /// </summary>
@@ -33,7 +39,7 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 日付ラベルのサイズ
         /// </summary>
-        private static readonly System.Drawing.Size _DateLabelSize = new Size(200, 22);
+        private static readonly System.Drawing.Size _DateLabelSize = new Size(165, 22);
         /// <summary>
         /// 二月目の位置
         /// </summary>
@@ -41,7 +47,7 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 配置間隔
         /// </summary>
-        private static readonly System.Drawing.Size _SeparateSize = new Size(202, 107);
+        private static readonly System.Drawing.Size _SeparateSize = new Size(167, 107);
         /// <summary>
         /// テキストボックスの先頭位置
         /// </summary>
@@ -49,7 +55,7 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// テキストボックスのサイズ
         /// </summary>
-        private static readonly System.Drawing.Size _TextBoxSize = new Size(200, 85);
+        private static readonly System.Drawing.Size _TextBoxSize = new Size(165, 85);
         /// <summary>
         /// 曜日表示の先頭位置
         /// </summary>
@@ -57,7 +63,9 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 曜日表示のサイズ
         /// </summary>
-        private static readonly Size _WeekLabelSize = new Size(200, 30);
+        private static readonly Size _WeekLabelSize = new Size(165, 30);
+
+
         /// <summary>
         /// 前月ボタンの先頭位置
         /// </summary>
@@ -92,6 +100,7 @@ namespace TwoMonthesCalendar
         /// </summary>
         private static readonly Size _NextMonthLabelSize = new Size(200, 30);
 
+
         private static int _SecCount = 1;
         private static DateTime _InvalidDateTime = new DateTime(0001, 1, 1, 0, 0, 0);
 
@@ -104,6 +113,11 @@ namespace TwoMonthesCalendar
         /// 解像度の指定
         /// </summary>
         public static RESOLUTION Resolution { get; set; } = RESOLUTION.R2560_1440;
+
+        /// <summary>
+        /// 解像度の指定
+        /// </summary>
+        public static LAYOUT_DIRECTION LayoutDirection { get; set; } = LAYOUT_DIRECTION.VIRTICAL;
 
 
         private static Dictionary<RESOLUTION, float> _ResolutionCoefDic = new Dictionary<RESOLUTION, float> {
