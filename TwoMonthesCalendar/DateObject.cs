@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace TwoMonthesCalendar
 {
-    internal class DateObject
+    public class DateObject
     {
         string m_FileName;
         public Label m_DayLabel;

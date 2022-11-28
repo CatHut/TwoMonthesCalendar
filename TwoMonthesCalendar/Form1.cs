@@ -280,11 +280,11 @@ namespace TwoMonthesCalendar
                     if (i >= days) { break; }
 
                     var date = new DateTime(showMonth.Year, showMonth.Month, i + 1);
-                    m_DateObjectDic1st[date] = m_DateObjectDic1st[key];
+                    ConstSetting.ChangeKey(ref m_DateObjectDic1st, key, date);
                     m_DateObjectDic1st[date].ChangeDate(date);
                     m_DateObjectDic1st[date].SetDateColor(date);
                     m_DateObjectDic1st[date].SetBackColor(color);
-                    m_DateObjectDic1st.Remove(key);
+
 
                     i++;
                 }
@@ -300,11 +300,10 @@ namespace TwoMonthesCalendar
                     if (i >= days) { break; }
 
                     var date = new DateTime(nextMonth.Year, nextMonth.Month, i + 1);
-                    m_DateObjectDic2nd[date] = m_DateObjectDic2nd[key];
+                    ConstSetting.ChangeKey(ref m_DateObjectDic2nd, key, date);
                     m_DateObjectDic2nd[date].ChangeDate(date);
                     m_DateObjectDic2nd[date].SetDateColor(date);
                     m_DateObjectDic2nd[date].SetBackColor(color);
-                    m_DateObjectDic2nd.Remove(key);
 
                     i++;
                 }
@@ -431,6 +430,12 @@ namespace TwoMonthesCalendar
                         m_DateObjectDic1st[key].SetPosition(key, true);
                         m_DateObjectDic1st[key].SetDateFont();
                         m_DateObjectDic1st[key].SetTextBoxFont();
+
+                        if(key.Date == DateTime.Today)
+                        {
+                            m_DateObjectDic1st[key].SetBackColor(Color.Cornsilk);
+                        }
+
                     }
                 }
             }
@@ -447,13 +452,18 @@ namespace TwoMonthesCalendar
                         m_DateObjectDic2nd[key].SetPosition(key, false);
                         m_DateObjectDic2nd[key].SetDateFont();
                         m_DateObjectDic2nd[key].SetTextBoxFont();
+
+                        if (key.Date == DateTime.Today)
+                        {
+                            m_DateObjectDic2nd[key].SetBackColor(Color.Cornsilk);
+                        }
                     }
                 }
             }
 
             //表示/非表示更新
             {
-                var keys = m_DateObjectDic1st.Keys;
+                var keys = m_DateObjectDic1st.Keys.ToList();
 
                 foreach (var key in keys)
                 {
@@ -461,6 +471,9 @@ namespace TwoMonthesCalendar
                     if (m_APS.Settings.m_ShowMonth != month)
                     {
                         m_DateObjectDic1st[key].SetVisible(false);
+                        var date = ConstSetting.InvalidDate;
+                        ConstSetting.ChangeKey(ref m_DateObjectDic1st, key, date);
+
                     }
                     else
                     {
@@ -470,15 +483,18 @@ namespace TwoMonthesCalendar
             }
 
             {
-                var keys = m_DateObjectDic2nd.Keys;
+                var keys = m_DateObjectDic2nd.Keys.ToList();
                 var nextMonth = m_APS.Settings.m_ShowMonth.AddMonths(1);
 
                 foreach (var key in keys)
                 {
                     var month = new DateTime(key.Year, key.Month, 1);
+                    var i = 1;
                     if (nextMonth != month)
                     {
                         m_DateObjectDic2nd[key].SetVisible(false);
+                        var date = ConstSetting.InvalidDate;
+                        ConstSetting.ChangeKey(ref m_DateObjectDic2nd, key, date);
                     }
                     else
                     {
@@ -486,6 +502,8 @@ namespace TwoMonthesCalendar
                     }
                 }
             }
+
+            //今日をハイライト
 
 
 

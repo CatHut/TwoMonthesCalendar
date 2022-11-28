@@ -92,6 +92,9 @@ namespace TwoMonthesCalendar
         /// </summary>
         private static readonly Size _NextMonthLabelSize = new Size(200, 30);
 
+        private static int _SecCount = 1;
+        private static DateTime _InvalidDateTime = new DateTime(0001, 1, 1, 0, 0, 0);
+
 
 
         private static Dictionary<DateTime, string> _HolidayDic = null;
@@ -450,5 +453,22 @@ namespace TwoMonthesCalendar
                 return _NextMonthLabelFont;
             }
         }
+
+        public static void ChangeKey(ref Dictionary<DateTime, DateObject> dic, DateTime oldKey, DateTime newKey)
+        {
+            dic[newKey] = dic[oldKey];
+            dic.Remove(oldKey);
+        }
+
+        public static DateTime InvalidDate
+        {
+            get
+            {
+                _SecCount++;
+                _SecCount %= 100000; 
+                return _InvalidDateTime.AddSeconds(_SecCount);
+            }
+        }
+
     }
 }
