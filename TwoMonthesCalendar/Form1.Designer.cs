@@ -63,6 +63,7 @@
             // 
             // button_PrevMonth
             // 
+            this.button_PrevMonth.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.button_PrevMonth.Location = new System.Drawing.Point(23, 42);
             this.button_PrevMonth.Name = "button_PrevMonth";
             this.button_PrevMonth.Size = new System.Drawing.Size(75, 23);
@@ -73,6 +74,7 @@
             // 
             // button_NextMonth
             // 
+            this.button_NextMonth.Font = new System.Drawing.Font("Yu Gothic UI", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.button_NextMonth.Location = new System.Drawing.Point(318, 42);
             this.button_NextMonth.Name = "button_NextMonth";
             this.button_NextMonth.Size = new System.Drawing.Size(75, 23);

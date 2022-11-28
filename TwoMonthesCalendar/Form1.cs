@@ -505,7 +505,6 @@ namespace TwoMonthesCalendar
                 foreach (var key in keys)
                 {
                     var month = new DateTime(key.Year, key.Month, 1);
-                    var i = 1;
                     if (nextMonth != month)
                     {
                         m_DateObjectDic2nd[key].SetVisible(false);
