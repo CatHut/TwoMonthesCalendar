@@ -92,7 +92,6 @@
             this.Controls.Add(this.label_ShowMonth);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
-            this.ShowInTaskbar = false;
             this.Text = "TwoMonthesCalendar";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);

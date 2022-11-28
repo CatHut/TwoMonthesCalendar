@@ -86,7 +86,11 @@ namespace TwoMonthesCalendar
 
         private void UpdateCalendar(DateTime showMonth)
         {
-            BeginControlUpdate(this);
+
+            //Formのコンストラクタでやると効かないようなのでここで設定。
+            this.DoubleBuffered = true;
+
+            //BeginControlUpdate(this);
 
             //今の表示を一旦破棄
             //RemoveCalendar();
@@ -96,7 +100,7 @@ namespace TwoMonthesCalendar
             AdjustCalendar();
 
 
-            EndControlUpdate(this);
+            //EndControlUpdate(this);
 
 
             this.Refresh();
@@ -436,6 +440,11 @@ namespace TwoMonthesCalendar
                             m_DateObjectDic1st[key].SetBackColor(Color.Cornsilk);
                         }
 
+                        if (key.Date < DateTime.Today)
+                        {
+                            m_DateObjectDic1st[key].SetBackColor(Color.LightGray);
+                        }
+
                     }
                 }
             }
@@ -453,10 +462,17 @@ namespace TwoMonthesCalendar
                         m_DateObjectDic2nd[key].SetDateFont();
                         m_DateObjectDic2nd[key].SetTextBoxFont();
 
+                        //今日をハイライト
                         if (key.Date == DateTime.Today)
                         {
                             m_DateObjectDic2nd[key].SetBackColor(Color.Cornsilk);
                         }
+
+                        if (key.Date < DateTime.Today)
+                        {
+                            m_DateObjectDic2nd[key].SetBackColor(Color.LightGray);
+                        }
+
                     }
                 }
             }
@@ -502,9 +518,6 @@ namespace TwoMonthesCalendar
                     }
                 }
             }
-
-            //今日をハイライト
-
 
 
 
