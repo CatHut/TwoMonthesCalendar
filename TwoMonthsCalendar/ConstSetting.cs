@@ -105,7 +105,7 @@ namespace TwoMonthesCalendar
         /// </summary>
         private static readonly Dictionary<LAYOUT_DIRECTION, Size> _ShowMonthLabelInitialPositionDic = new Dictionary<LAYOUT_DIRECTION, Size>{
              { LAYOUT_DIRECTION.VIRTICAL, new Size(484, 587) }
-            ,{ LAYOUT_DIRECTION.HORIZONTAL, new Size(1704, 35) }
+            ,{ LAYOUT_DIRECTION.HORIZONTAL,new Size(484, 35) }
         };
         /// <summary>
         /// 今月表示のサイズ
@@ -116,7 +116,7 @@ namespace TwoMonthesCalendar
         /// </summary>
         private static readonly Dictionary<LAYOUT_DIRECTION, Size> _NextMonthLabelInitialPositionDic = new Dictionary<LAYOUT_DIRECTION, Size>{
              { LAYOUT_DIRECTION.VIRTICAL, new Size(484, 647) }
-            ,{ LAYOUT_DIRECTION.HORIZONTAL,new Size(484, 35) }
+            ,{ LAYOUT_DIRECTION.HORIZONTAL, new Size(1704, 35) }
         };
         /// <summary>
         /// 次月表示のサイズ
