@@ -42,6 +42,7 @@
             this.notifyIconTwoMonthesCalendar.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIconTwoMonthesCalendar.Icon")));
             this.notifyIconTwoMonthesCalendar.Text = "notifyIconTwoMonthesCalendar";
             this.notifyIconTwoMonthesCalendar.Visible = true;
+            this.notifyIconTwoMonthesCalendar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.notifyIconTwoMonthesCalendar_MouseDown);
             // 
             // label_ShowMonth
             // 

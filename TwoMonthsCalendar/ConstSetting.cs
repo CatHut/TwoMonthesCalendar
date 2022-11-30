@@ -43,7 +43,10 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 二月目の位置
         /// </summary>
-        private static readonly System.Drawing.Size _SecondMonthPosition = new Size(0, 700);
+        private static readonly Dictionary<LAYOUT_DIRECTION, Size> _SecondMonthPositionDic = new Dictionary<LAYOUT_DIRECTION, Size>{
+             { LAYOUT_DIRECTION.VIRTICAL, new Size(0, 700) }
+            ,{ LAYOUT_DIRECTION.HORIZONTAL, new Size(1220, 0) }
+        };
         /// <summary>
         /// 配置間隔
         /// </summary>
@@ -215,7 +218,7 @@ namespace TwoMonthesCalendar
         {
             get
             {
-                return (Point)(_SecondMonthPosition * _ResolutionCoefDic[Resolution]).ToSize();
+                return (Point)(_SecondMonthPositionDic[LayoutDirection] * _ResolutionCoefDic[Resolution]).ToSize();
             }
         }
 

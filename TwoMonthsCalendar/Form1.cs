@@ -1,4 +1,5 @@
 using CatHut;
+using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -24,9 +25,8 @@ namespace TwoMonthesCalendar
             this.WindowState = FormWindowState.Minimized;
             InitializeComponent();
 
-            notifyIconTwoMonthesCalendar.ContextMenuStrip = ContextMenu();
-
             Initialize();
+
 
         }
 
@@ -59,12 +59,13 @@ namespace TwoMonthesCalendar
                 }
             });
 
-
+            Debug.WriteLine(ConstSetting.LayoutDirection.ToString());
             if (ConstSetting.LayoutDirection == ConstSetting.LAYOUT_DIRECTION.VIRTICAL)
             {
                 menu.Items.Add("横配置", null, (s, e) =>
                 {
                     ConstSetting.LayoutDirection = ConstSetting.LAYOUT_DIRECTION.HORIZONTAL;
+                    m_APS.Settings.m_LayoutDirection = ConstSetting.LayoutDirection;
                     AdjustCalendar();
                     m_APS.SaveData();
                 });
@@ -74,6 +75,7 @@ namespace TwoMonthesCalendar
                 menu.Items.Add("縦配置", null, (s, e) =>
                 {
                     ConstSetting.LayoutDirection = ConstSetting.LAYOUT_DIRECTION.VIRTICAL;
+                    m_APS.Settings.m_LayoutDirection = ConstSetting.LayoutDirection;
                     AdjustCalendar();
                     m_APS.SaveData();
                 });
@@ -623,6 +625,14 @@ namespace TwoMonthesCalendar
             this.Location = m_APS.Settings.m_Location;
 
 
+        }
+
+        private void notifyIconTwoMonthesCalendar_MouseDown(object sender, MouseEventArgs e)
+        {
+            if ((e.Button & MouseButtons.Right) == MouseButtons.Right)
+            {
+                notifyIconTwoMonthesCalendar.ContextMenuStrip = ContextMenu();
+            }
         }
 
         //最背面表示試行（失敗）

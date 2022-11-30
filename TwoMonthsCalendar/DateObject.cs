@@ -175,13 +175,13 @@ namespace TwoMonthesCalendar
             else
             {
                 m_DayLabel.Location = new Point(
-                    ConstSetting.DateLabelInitialPosition.X + ConstSetting.SeparateSize.Width * weekDay,
+                    ConstSetting.SecondMonthPosition.X + ConstSetting.DateLabelInitialPosition.X + ConstSetting.SeparateSize.Width * weekDay,
                     ConstSetting.SecondMonthPosition.Y + ConstSetting.DateLabelInitialPosition.Y + ConstSetting.SeparateSize.Height * weekOfMonth
                     );
                 m_DayLabel.Size = ConstSetting.DateLabelSize;
 
                 m_Rtb.Location = new Point(
-                    ConstSetting.TextBoxInitialPosition.X + ConstSetting.SeparateSize.Width * weekDay,
+                    ConstSetting.SecondMonthPosition.X + ConstSetting.TextBoxInitialPosition.X + ConstSetting.SeparateSize.Width * weekDay,
                     ConstSetting.SecondMonthPosition.Y + ConstSetting.TextBoxInitialPosition.Y + ConstSetting.SeparateSize.Height * weekOfMonth
                     );
                 m_Rtb.Size = ConstSetting.TextBoxSize;
