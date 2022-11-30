@@ -33,46 +33,57 @@ namespace TwoMonthesCalendar
         }
 
         /// <summary>
+        /// 曜日表示の先頭位置
+        /// </summary>
+        private static readonly Dictionary<LAYOUT_DIRECTION, Size> _WeekLabelInitialPositionDic = new Dictionary<LAYOUT_DIRECTION, Size>{
+             { LAYOUT_DIRECTION.VIRTICAL, new Size(0, 0) }
+            ,{ LAYOUT_DIRECTION.HORIZONTAL, new Size(0, 100) }
+        };
+        /// <summary>
+        /// 曜日表示のサイズ
+        /// </summary>
+        private static readonly Size _WeekLabelSize = new Size(165, 30);
+        /// <summary>
         /// 日付ラベルの先頭位置
         /// </summary>
-        private static readonly System.Drawing.Size _DateLabelInitialPosition = new Size(0, 30);
+        private static readonly Dictionary<LAYOUT_DIRECTION, Size> _DateLabelInitialPositionDic = new Dictionary<LAYOUT_DIRECTION, Size>{
+             { LAYOUT_DIRECTION.VIRTICAL, new Size(0, 30) }
+            ,{ LAYOUT_DIRECTION.HORIZONTAL, new Size(0, 130) }
+        };
         /// <summary>
         /// 日付ラベルのサイズ
         /// </summary>
-        private static readonly System.Drawing.Size _DateLabelSize = new Size(165, 22);
+        private static readonly Size _DateLabelSize = new Size(165, 22);
         /// <summary>
+        /// テキストボックスの先頭位置
+        /// </summary>
+        private static readonly Dictionary<LAYOUT_DIRECTION, Size> _TextBoxInitialPositionDic = new Dictionary<LAYOUT_DIRECTION, Size>{
+             { LAYOUT_DIRECTION.VIRTICAL, new Size(0, 50) }
+            ,{ LAYOUT_DIRECTION.HORIZONTAL, new Size(0, 150) }
+        };
+        /// <summary>
+        /// テキストボックスのサイズ
+        /// </summary>
+        private static readonly Size _TextBoxSize = new Size(165, 85);
+        /// <summary>
+        /// 配置間隔
+        /// </summary>
+        private static readonly Size _SeparateSize = new Size(167, 107);
         /// 二月目の位置
         /// </summary>
         private static readonly Dictionary<LAYOUT_DIRECTION, Size> _SecondMonthPositionDic = new Dictionary<LAYOUT_DIRECTION, Size>{
              { LAYOUT_DIRECTION.VIRTICAL, new Size(0, 700) }
             ,{ LAYOUT_DIRECTION.HORIZONTAL, new Size(1220, 0) }
         };
-        /// <summary>
-        /// 配置間隔
-        /// </summary>
-        private static readonly System.Drawing.Size _SeparateSize = new Size(167, 107);
-        /// <summary>
-        /// テキストボックスの先頭位置
-        /// </summary>
-        private static readonly System.Drawing.Size _TextBoxInitialPosition = new Size(0, 50);
-        /// <summary>
-        /// テキストボックスのサイズ
-        /// </summary>
-        private static readonly System.Drawing.Size _TextBoxSize = new Size(165, 85);
-        /// <summary>
-        /// 曜日表示の先頭位置
-        /// </summary>
-        private static readonly Size _WeekLabelInitialPosition = new Size(0, 0);
-        /// <summary>
-        /// 曜日表示のサイズ
-        /// </summary>
-        private static readonly Size _WeekLabelSize = new Size(165, 30);
 
 
         /// <summary>
         /// 前月ボタンの先頭位置
         /// </summary>
-        private static readonly Size _PrevMonthButtonInitialPosition = new Size(409, 610);
+        private static readonly Dictionary<LAYOUT_DIRECTION, Size> _PrevMonthButtonInitialPositionDic = new Dictionary<LAYOUT_DIRECTION, Size>{
+             { LAYOUT_DIRECTION.VIRTICAL, new Size(409, 610) }
+            ,{ LAYOUT_DIRECTION.HORIZONTAL, new Size(1019, 27) }
+        };
         /// <summary>
         /// 前月ボタンのサイズ
         /// </summary>
@@ -80,7 +91,10 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 次月ボタンの先頭位置
         /// </summary>
-        private static readonly Size _NextMonthButtonInitialPosition = new Size(684, 610);
+        private static readonly Dictionary<LAYOUT_DIRECTION, Size> _NextMonthButtonInitialPositionDic = new Dictionary<LAYOUT_DIRECTION, Size>{
+             { LAYOUT_DIRECTION.VIRTICAL, new Size(684, 610) }
+            ,{ LAYOUT_DIRECTION.HORIZONTAL, new Size(1294, 27) }
+        };
         /// <summary>
         /// 次月ボタンのサイズ
         /// </summary>
@@ -89,7 +103,10 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 今月表示の先頭位置
         /// </summary>
-        private static readonly Size _ShowMonthLabelInitialPosition = new Size(484, 587);
+        private static readonly Dictionary<LAYOUT_DIRECTION, Size> _ShowMonthLabelInitialPositionDic = new Dictionary<LAYOUT_DIRECTION, Size>{
+             { LAYOUT_DIRECTION.VIRTICAL, new Size(484, 587) }
+            ,{ LAYOUT_DIRECTION.HORIZONTAL, new Size(1704, 35) }
+        };
         /// <summary>
         /// 今月表示のサイズ
         /// </summary>
@@ -97,7 +114,10 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 次月表示の先頭位置
         /// </summary>
-        private static readonly Size _NextMonthLabelInitialPosition = new Size(484, 647);
+        private static readonly Dictionary<LAYOUT_DIRECTION, Size> _NextMonthLabelInitialPositionDic = new Dictionary<LAYOUT_DIRECTION, Size>{
+             { LAYOUT_DIRECTION.VIRTICAL, new Size(484, 647) }
+            ,{ LAYOUT_DIRECTION.HORIZONTAL,new Size(484, 35) }
+        };
         /// <summary>
         /// 次月表示のサイズ
         /// </summary>
@@ -154,7 +174,7 @@ namespace TwoMonthesCalendar
         {
             get
             {
-                return (Point)(_DateLabelInitialPosition * _ResolutionCoefDic[Resolution]).ToSize();
+                return (Point)(_DateLabelInitialPositionDic[LayoutDirection] * _ResolutionCoefDic[Resolution]).ToSize();
             }
         }
 
@@ -196,7 +216,7 @@ namespace TwoMonthesCalendar
         {
             get
             {
-                return (Point)(_TextBoxInitialPosition * _ResolutionCoefDic[Resolution]).ToSize();
+                return (Point)(_TextBoxInitialPositionDic[LayoutDirection] * _ResolutionCoefDic[Resolution]).ToSize();
             }
         }
 
@@ -306,7 +326,7 @@ namespace TwoMonthesCalendar
         {
             get
             {
-                return (Point)(_WeekLabelInitialPosition * _ResolutionCoefDic[Resolution]).ToSize();
+                return (Point)(_WeekLabelInitialPositionDic[LayoutDirection] * _ResolutionCoefDic[Resolution]).ToSize();
             }
         }
 
@@ -342,7 +362,7 @@ namespace TwoMonthesCalendar
         {
             get
             {
-                return (Point)(_PrevMonthButtonInitialPosition * _ResolutionCoefDic[Resolution]).ToSize();
+                return (Point)(_PrevMonthButtonInitialPositionDic[LayoutDirection] * _ResolutionCoefDic[Resolution]).ToSize();
             }
         }
 
@@ -358,7 +378,7 @@ namespace TwoMonthesCalendar
         {
             get
             {
-                return (Point)(_NextMonthButtonInitialPosition * _ResolutionCoefDic[Resolution]).ToSize();
+                return (Point)(_NextMonthButtonInitialPositionDic[LayoutDirection] * _ResolutionCoefDic[Resolution]).ToSize();
             }
         }
 
@@ -374,7 +394,7 @@ namespace TwoMonthesCalendar
         {
             get
             {
-                return (Point)(_ShowMonthLabelInitialPosition * _ResolutionCoefDic[Resolution]).ToSize();
+                return (Point)(_ShowMonthLabelInitialPositionDic[LayoutDirection] * _ResolutionCoefDic[Resolution]).ToSize();
             }
         }
 
@@ -390,7 +410,7 @@ namespace TwoMonthesCalendar
         {
             get
             {
-                return (Point)(_NextMonthLabelInitialPosition * _ResolutionCoefDic[Resolution]).ToSize();
+                return (Point)(_NextMonthLabelInitialPositionDic[LayoutDirection] * _ResolutionCoefDic[Resolution]).ToSize();
             }
         }
 
