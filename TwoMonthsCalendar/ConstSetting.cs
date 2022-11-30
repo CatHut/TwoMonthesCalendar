@@ -69,7 +69,7 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 前月ボタンの先頭位置
         /// </summary>
-        private static readonly Size _PrevMonthButtonInitialPosition = new Size(532, 610);
+        private static readonly Size _PrevMonthButtonInitialPosition = new Size(409, 610);
         /// <summary>
         /// 前月ボタンのサイズ
         /// </summary>
@@ -77,7 +77,7 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 次月ボタンの先頭位置
         /// </summary>
-        private static readonly Size _NextMonthButtonInitialPosition = new Size(807, 610);
+        private static readonly Size _NextMonthButtonInitialPosition = new Size(684, 610);
         /// <summary>
         /// 次月ボタンのサイズ
         /// </summary>
@@ -86,7 +86,7 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 今月表示の先頭位置
         /// </summary>
-        private static readonly Size _ShowMonthLabelInitialPosition = new Size(607, 587);
+        private static readonly Size _ShowMonthLabelInitialPosition = new Size(484, 587);
         /// <summary>
         /// 今月表示のサイズ
         /// </summary>
@@ -94,7 +94,7 @@ namespace TwoMonthesCalendar
         /// <summary>
         /// 次月表示の先頭位置
         /// </summary>
-        private static readonly Size _NextMonthLabelInitialPosition = new Size(607, 647);
+        private static readonly Size _NextMonthLabelInitialPosition = new Size(484, 647);
         /// <summary>
         /// 次月表示のサイズ
         /// </summary>
