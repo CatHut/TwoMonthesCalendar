@@ -278,7 +278,15 @@ namespace TwoMonthesCalendar
             var url = @"https://holidays-jp.github.io/api/v1/date.json";
             var req = new HttpClient();
 
-            var result = req.GetStringAsync(url).Result;
+            string result = "";
+            try
+            {
+                result = req.GetStringAsync(url).Result;
+            }
+            catch(Exception ex)
+            {
+                result = "";
+            }
 
             req.Dispose();
 
@@ -287,9 +295,13 @@ namespace TwoMonthesCalendar
 
         private static Dictionary<DateTime, string> ParseResult(string json)
         {
-            var ret = JsonSerializer.Deserialize<Dictionary<DateTime, string>>(json);
-
-            return ret;
+            if(json == null || json == ""){
+                return new Dictionary<DateTime, string>();
+            }
+            {
+                var ret = JsonSerializer.Deserialize<Dictionary<DateTime, string>>(json);
+                return ret;
+            }
         }
 
 
