@@ -278,6 +278,8 @@ namespace TwoMonthesCalendar
             var url = @"https://holidays-jp.github.io/api/v1/date.json";
             var req = new HttpClient();
 
+            req.Timeout = TimeSpan.FromMilliseconds(5000);
+
             string result = "";
             try
             {
